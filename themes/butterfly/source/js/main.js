@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const scrollFn = () => {
     const $rightside = document.getElementById('rightside')
+    if (!$rightside) return
     const innerHeight = window.innerHeight + 56
     let initTop = 0
     const $header = document.getElementById('page-header')
@@ -718,7 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.getElementById('rightside').addEventListener('click', e => {
+  document.getElementById('rightside')?.addEventListener('click', e => {
     const $target = e.target.closest('[id]')
     if ($target && rightSideFn[$target.id]) {
       rightSideFn[$target.id](e.currentTarget, $target)

@@ -53,6 +53,18 @@ test('documented local preview command has its Hexo server dependency', () => {
   assert.ok(packageJson.devDependencies['hexo-server'])
 })
 
+test('Butterfly rightside handlers tolerate the notebook shell omitting rightside', () => {
+  const script = read('themes/butterfly/source/js/main.js')
+  assert.match(
+    script,
+    /const \$rightside = document\.getElementById\('rightside'\)\s+if \(!\$rightside\) return/
+  )
+  assert.match(
+    script,
+    /document\.getElementById\('rightside'\)\?\.addEventListener\('click'/
+  )
+})
+
 test('theme stylesheet contains both palettes and reduced-motion rules', () => {
   const css = read('source/css/notebook.css')
   assert.match(css, /--notebook-canvas:\s*#ecebeb/i)
