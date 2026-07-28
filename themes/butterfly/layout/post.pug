@@ -9,8 +9,7 @@ block content
     article#article-container.container.post-content.notebook-reading
       if theme.noticeOutdate.enable && page.noticeOutdate !== false
         include includes/post/outdate-notice.pug
-      else
-        !=page.content
+      !=page.content
     include includes/post/post-copyright.pug
     .tag_share
       if (page.tags.length > 0 && theme.post_meta.post.tags)

@@ -77,6 +77,18 @@ test('Butterfly menu adjustment tolerates the notebook shell omitting menus', ()
   )
 })
 
+test('outdate notice preserves post content in the notebook reading shell', () => {
+  const template = read('themes/butterfly/layout/post.pug')
+  assert.match(
+    template,
+    /^ {6}if theme\.noticeOutdate\.enable && page\.noticeOutdate !== false\r?\n {8}include includes\/post\/outdate-notice\.pug\r?\n {6}!=page\.content$/m
+  )
+  assert.doesNotMatch(
+    template,
+    /include includes\/post\/outdate-notice\.pug\s+else\s+!=page\.content/
+  )
+})
+
 test('theme stylesheet contains both palettes and reduced-motion rules', () => {
   const css = read('source/css/notebook.css')
   assert.match(css, /--notebook-canvas:\s*#ecebeb/i)
