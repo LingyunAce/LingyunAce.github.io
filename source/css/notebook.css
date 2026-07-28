@@ -683,6 +683,13 @@
   stroke-width: 1.75;
 }
 
+.notebook-site .notebook-destination__image {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
 .notebook-site .notebook-destination__label {
   margin-top: auto;
   font-size: clamp(1.1rem, 2vw, 1.35rem);

@@ -31,7 +31,10 @@ html(lang=config.language data-theme="light")
               target=item.external ? "_blank" : null
               rel=item.external ? "noopener" : null
             )
-              +notebookIcon(item.id, item.label)
+              if item.icon
+                img.notebook-destination__image(src=url_for(item.icon) alt=item.label)
+              else
+                +notebookIcon(item.id, item.label)
               span.notebook-destination__label= item.label
               small= item.subtitle
     footer.notebook-home-footer

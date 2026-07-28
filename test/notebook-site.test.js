@@ -135,15 +135,33 @@ test('all interactive notebook controls meet the minimum target size', () => {
   }
 })
 
-test('generated homepage is a six-destination notebook index', () => {
+test('homepage template renders configured images with an SVG fallback', () => {
+  const template = read('themes/butterfly/layout/notebook-home.pug')
+  assert.match(template, /if item\.icon/)
+  assert.match(template, /img\.notebook-destination__image\(src=url_for\(item\.icon\) alt=item\.label\)/)
+  assert.match(template, /else\s+\+notebookIcon\(item\.id, item\.label\)/)
+})
+
+test('generated homepage is a five-destination Pokemon notebook index', () => {
   const html = read('public/index.html')
   assert.match(html, /class="notebook-site notebook-home"/)
   assert.match(html, /data-theme-toggle/)
   assert.match(html, /aria-label="主要入口"/)
-  for (const id of ['projects', 'writing', 'notes', 'about', 'github', 'contact']) {
-    assert.match(html, new RegExp(`data-destination="${id}"`))
+  const expected = {
+    projects: 'pikachu.png',
+    writing: 'psyduck.png',
+    about: 'eevee.png',
+    github: 'meowth.png',
+    contact: 'jigglypuff.png'
   }
-  assert.equal((html.match(/data-destination=/g) || []).length, 6)
+
+  for (const [id, filename] of Object.entries(expected)) {
+    assert.match(html, new RegExp(`data-destination="${id}"[\\s\\S]*?img/pokemon/${filename}`))
+  }
+
+  assert.doesNotMatch(html, /data-destination="notes"/)
+  assert.equal((html.match(/data-destination=/g) || []).length, 5)
+  assert.equal((html.match(/class="notebook-destination__image"/g) || []).length, 5)
 })
 
 test('projects page uses shared shell and renders project data', () => {
