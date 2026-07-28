@@ -54,5 +54,20 @@ test('theme stylesheet contains both palettes and reduced-motion rules', () => {
   assert.match(css, /\[data-theme="dark"\]/)
   assert.match(css, /--notebook-paper:\s*#242225/i)
   assert.match(css, /prefers-reduced-motion:\s*reduce/)
-  assert.match(css, /min-height:\s*44px/)
+})
+
+test('all interactive notebook controls meet the minimum target size', () => {
+  const css = read('source/css/notebook.css')
+  for (const selector of [
+    '.notebook-site .notebook-theme-toggle',
+    '.notebook-site .notebook-tab',
+    '.notebook-site .notebook-destination',
+    '.notebook-site .notebook-footer-links a'
+  ]) {
+    const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const rule = new RegExp(
+      `${escapedSelector}[^}]*min-width:\\s*44px;[^}]*min-height:\\s*44px;`
+    )
+    assert.match(css, rule, `${selector} must provide a 44px minimum target`)
+  }
 })

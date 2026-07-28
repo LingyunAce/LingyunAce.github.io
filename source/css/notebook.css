@@ -362,6 +362,13 @@
   gap: 16px;
 }
 
+.notebook-site .notebook-footer-links a {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+}
+
 /* Dark-theme adjustments */
 [data-theme="dark"] .notebook-site .notebook-paper,
 [data-theme="dark"] .notebook-site .notebook-card {
