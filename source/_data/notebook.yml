@@ -8,12 +8,11 @@ nav:
   - { id: github, label: "GitHub ↗", url: "https://github.com/LingyunAce", external: true }
 
 destinations:
-  - { id: projects, label: 作品, subtitle: Projects, url: /projects/, accent: blue }
-  - { id: writing, label: 文章, subtitle: Writing, url: /archives/, accent: pink }
-  - { id: notes, label: 随记, subtitle: Notes, url: /tags/随笔/, accent: yellow }
-  - { id: about, label: 关于, subtitle: About, url: /about/, accent: purple }
-  - { id: github, label: GitHub, subtitle: Code, url: "https://github.com/LingyunAce", accent: green, external: true }
-  - { id: contact, label: 联系, subtitle: Email, url: "mailto:543491395@qq.com", accent: orange }
+  - { id: projects, label: 作品, subtitle: Projects, url: /projects/, accent: blue, icon: /img/pokemon/pikachu.png }
+  - { id: writing, label: 文章, subtitle: Writing, url: /archives/, accent: pink, icon: /img/pokemon/psyduck.png }
+  - { id: about, label: 关于, subtitle: About, url: /about/, accent: purple, icon: /img/pokemon/eevee.png }
+  - { id: github, label: GitHub, subtitle: Code, url: "https://github.com/LingyunAce", accent: green, external: true, icon: /img/pokemon/meowth.png }
+  - { id: contact, label: 联系, subtitle: Email, url: "mailto:543491395@qq.com", accent: orange, icon: /img/pokemon/jigglypuff.png }
 
 about_notes:
   - id: hello

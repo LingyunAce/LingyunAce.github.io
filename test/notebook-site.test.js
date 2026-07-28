@@ -28,13 +28,27 @@ test('project tag matching supports all and comma-delimited tags', () => {
   assert.equal(tagsMatch('Go', 'React,TypeScript'), false)
 })
 
-test('notebook data and original assets define the approved navigation', () => {
+test('notebook data defines five configurable Pokemon destinations', () => {
   const data = read('source/_data/notebook.yml')
-  assert.match(data, /role: "Independent Developer · Writer"/)
-  for (const id of ['projects', 'writing', 'notes', 'about', 'github', 'contact']) {
-    assert.match(data, new RegExp(`id: ${id}`))
+  const expected = {
+    projects: '/img/pokemon/pikachu.png',
+    writing: '/img/pokemon/psyduck.png',
+    about: '/img/pokemon/eevee.png',
+    github: '/img/pokemon/meowth.png',
+    contact: '/img/pokemon/jigglypuff.png'
   }
 
+  for (const [id, icon] of Object.entries(expected)) {
+    assert.match(data, new RegExp(`id: ${id}[^\\n]*icon: ${icon.replaceAll('/', '\\/')}`))
+    const bytes = fs.readFileSync(path.join(root, 'source', icon))
+    assert.equal(bytes.subarray(1, 4).toString('ascii'), 'PNG')
+  }
+
+  assert.doesNotMatch(data, /id: notes/)
+  assert.doesNotMatch(data, /label: 随记/)
+})
+
+test('notebook fallback SVG assets remain available', () => {
   const wordmark = read('source/img/notebook/wordmark.svg')
   const icons = read('source/img/notebook/icons.svg')
   assert.match(wordmark, /aria-labelledby="wordmark-title"/)

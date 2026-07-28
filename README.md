@@ -144,7 +144,8 @@ git push -u origin main
 - **导航菜单**：编辑 `_config.butterfly.yml` 的 `menu`
 - **社交链接**：编辑 `_config.butterfly.yml` 的 `social`
 - **作品集数据**：编辑 `source/_data/projects.yml`（`highlight: true` 的项目会显示在首页）
-- **首页文案**：编辑 `source/index.md` 配合 `themes/butterfly/layout/portfolio.pug`
+- **首页入口与文案**：编辑 `source/_data/notebook.yml`
+- **首页入口图标**：将 PNG 放入 `source/img/pokemon/`，再修改 `source/_data/notebook.yml` 对应入口的 `icon` 路径；无需修改模板或 CSS
 - **关于页**：编辑 `source/about/index.md`
 
 ## 验证
