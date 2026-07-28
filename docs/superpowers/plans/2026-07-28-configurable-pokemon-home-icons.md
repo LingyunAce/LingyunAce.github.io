@@ -136,16 +136,15 @@ Also replace the stale “首页文案” line with:
 - **首页入口与文案**：编辑 `source/_data/notebook.yml`
 ```
 
-- [ ] **Step 6: Run focused and full tests**
+- [ ] **Step 6: Run the focused source-contract tests**
 
 Run:
 
 ```powershell
 node --test --test-name-pattern="Pokemon destinations|fallback SVG assets" test/notebook-site.test.js
-npm.cmd test
 ```
 
-Expected: both commands pass.
+Expected: the focused tests pass. Do not run the generated-output tests against the stale `public/` directory; Task 2 rebuilds the site after updating the template and then runs the full suite.
 
 - [ ] **Step 7: Commit**
 
