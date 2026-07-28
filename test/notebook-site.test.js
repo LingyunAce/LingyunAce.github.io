@@ -65,6 +65,18 @@ test('Butterfly rightside handlers tolerate the notebook shell omitting rightsid
   )
 })
 
+test('Butterfly menu adjustment tolerates the notebook shell omitting menus', () => {
+  const script = read('themes/butterfly/source/js/main.js')
+  assert.match(
+    script,
+    /const adjustMenu = init => \{\s+if \(!document\.getElementById\('menus'\)\) return/
+  )
+  assert.match(
+    script,
+    /adjustMenu\(true\)\s+\$nav\?\.classList\.add\('show'\)/
+  )
+})
+
 test('theme stylesheet contains both palettes and reduced-motion rules', () => {
   const css = read('source/css/notebook.css')
   assert.match(css, /--notebook-canvas:\s*#ecebeb/i)

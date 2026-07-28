@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let mobileSidebarOpen = false
 
   const adjustMenu = init => {
+    if (!document.getElementById('menus')) return
     const getAllWidth = ele => Array.from(ele).reduce((width, i) => width + i.offsetWidth, 0)
 
     if (init) {
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 初始化header
   const initAdjust = () => {
     adjustMenu(true)
-    $nav.classList.add('show')
+    $nav?.classList.add('show')
   }
 
   // sidebar menus
