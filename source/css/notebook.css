@@ -351,23 +351,62 @@
 }
 
 /* Archive list */
+.notebook-site .notebook-archive {
+  width: min(calc(100% - 48px), 780px);
+  margin-inline: auto;
+}
+
 .notebook-site .notebook-archive-list {
+  position: relative;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 24px;
   list-style: none;
+}
+
+.notebook-site .notebook-archive-list::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 1px;
+  background: var(--notebook-border);
+  content: '';
 }
 
 .notebook-site .notebook-archive-item {
   display: grid;
-  grid-template-columns: 8rem minmax(0, 1fr);
+  grid-template-columns: 5rem minmax(0, 1fr);
   gap: 24px;
+  position: relative;
   border-bottom: 1px solid var(--notebook-border);
   padding: 20px 0;
 }
 
+.notebook-site .notebook-archive-item::before {
+  position: absolute;
+  top: 28px;
+  left: -29px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--notebook-paper);
+  border-radius: 50%;
+  background: var(--notebook-pink);
+  content: '';
+}
+
 .notebook-site .notebook-archive-date {
   color: var(--notebook-muted);
+  font-size: 0.875rem;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+
+.notebook-site .notebook-archive-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.notebook-site .notebook-archive-description {
+  margin: 6px 0 0;
+  color: var(--notebook-muted);
 }
 
 /* About notes */
@@ -397,32 +436,31 @@
 }
 
 /* Post reading layout */
+.notebook-site .notebook-post {
+  width: min(calc(100% - 48px), 980px);
+  margin-inline: auto;
+}
+
 .notebook-site .notebook-reading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
-  gap: clamp(32px, 6vw, 72px);
-  padding: clamp(28px, 6vw, 72px);
+  width: min(100%, 760px);
+  margin-inline: auto;
+  border: 1px solid var(--notebook-border);
+  border-radius: 24px;
+  padding: clamp(28px, 6vw, 56px);
+  background: var(--notebook-paper);
+  background-image: none;
 }
 
-.notebook-site .notebook-prose {
-  min-width: 0;
-  font-size: 1.0625rem;
-}
-
-.notebook-site .notebook-prose > * {
-  max-width: 72ch;
-}
-
-.notebook-site .notebook-prose pre {
+.notebook-site .notebook-reading pre {
   max-width: 100%;
   overflow-x: auto;
   border-radius: 16px;
   padding: 20px;
 }
 
-.notebook-site .notebook-reading-aside {
-  color: var(--notebook-muted);
-  font-size: 0.875rem;
+.notebook-site .notebook-reading .headerlink:focus-visible {
+  outline: 3px solid var(--notebook-pink);
+  outline-offset: 3px;
 }
 
 /* Footer */
@@ -509,6 +547,11 @@
   .notebook-site .notebook-archive-item {
     grid-template-columns: 1fr;
     gap: 4px;
+  }
+
+  .notebook-site .notebook-archive,
+  .notebook-site .notebook-post {
+    width: min(calc(100% - 24px), 780px);
   }
 }
 

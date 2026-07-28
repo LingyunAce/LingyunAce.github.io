@@ -1,6 +1,6 @@
 - var globalPageType = getPageType(page, is_home)
 - const notebookPaths = ['projects/index.html', 'about/index.html']
-- const isNotebookPage = notebookPaths.includes(page.path)
+- const isNotebookPage = notebookPaths.includes(page.path) || ['archive', 'post'].includes(globalPageType)
 - if (isNotebookPage) page.aside = false
 - var htmlClassHideAside = theme.aside.enable && theme.aside.hide ? 'hide-aside' : ''
 - page.aside = globalPageType === 'archive' ? theme.aside.display.archive: globalPageType === 'category' ? theme.aside.display.category : globalPageType === 'tag' ? theme.aside.display.tag : page.aside

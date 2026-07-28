@@ -103,3 +103,18 @@ test('about page renders approved notes in semantic order', () => {
   }
   assert.match(html, /class="notebook-footer"/)
 })
+
+test('archive is a compact chronological notebook list', () => {
+  const html = read('public/archives/index.html')
+  assert.match(html, /class="notebook-archive"/)
+  assert.match(html, /class="notebook-archive-item"/)
+  assert.match(html, /aria-current="page"[^>]*>文章</)
+})
+
+test('post pages keep article content inside the notebook reading shell', () => {
+  const html = read('public/2026/06/01/hexo-setup-notes/index.html')
+  assert.match(html, /class="notebook-post"/)
+  assert.match(html, /class="[^"]*notebook-reading[^"]*"/)
+  assert.match(html, /Hexo 建站笔记/)
+  assert.match(html, /<pre/)
+})

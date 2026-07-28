@@ -1,11 +1,12 @@
 extends includes/layout.pug
 
 block content
-  #post
+  - var top_img = false
+  #post.notebook-post
     if top_img === false
       include includes/header/post-info.pug
 
-    article#article-container.container.post-content
+    article#article-container.container.post-content.notebook-reading
       if theme.noticeOutdate.enable && page.noticeOutdate !== false
         include includes/post/outdate-notice.pug
       else
