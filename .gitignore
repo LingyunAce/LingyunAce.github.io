@@ -8,3 +8,5 @@ db.json
 .vscode/
 *.iml
 _config.yml.bak
+.firecrawl/
+.superpowers/
