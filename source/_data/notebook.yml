@@ -1,0 +1,38 @@
+role: "Independent Developer · Writer"
+
+nav:
+  - { id: home, label: 首页, url: / }
+  - { id: projects, label: 作品, url: /projects/ }
+  - { id: writing, label: 文章, url: /archives/ }
+  - { id: about, label: 关于, url: /about/ }
+  - { id: github, label: "GitHub ↗", url: "https://github.com/LingyunAce", external: true }
+
+destinations:
+  - { id: projects, label: 作品, subtitle: Projects, url: /projects/, accent: blue }
+  - { id: writing, label: 文章, subtitle: Writing, url: /archives/, accent: pink }
+  - { id: notes, label: 随记, subtitle: Notes, url: /tags/随笔/, accent: yellow }
+  - { id: about, label: 关于, subtitle: About, url: /about/, accent: purple }
+  - { id: github, label: GitHub, subtitle: Code, url: "https://github.com/LingyunAce", accent: green, external: true }
+  - { id: contact, label: 联系, subtitle: Email, url: "mailto:543491395@qq.com", accent: orange }
+
+about_notes:
+  - id: hello
+    title: Hello
+    lines: ["我是凌云", "独立开发者 / 工程师", "关注产品、系统与写作"]
+  - id: doing
+    title: 正在做
+    lines: ["Web 应用", "数据可视化", "开发工具"]
+  - id: tools
+    title: 常用工具
+    lines: ["React · TypeScript", "Python · Go", "Git · Docker"]
+  - id: interests
+    title: 兴趣
+    lines: ["独立开发", "技术写作", "持续学习"]
+  - id: contact
+    title: 联系我
+    lines: ["GitHub @LingyunAce", "543491395@qq.com"]
+
+footer_links:
+  - { label: GitHub, url: "https://github.com/LingyunAce", external: true }
+  - { label: 邮箱, url: "mailto:543491395@qq.com" }
+  - { label: RSS, url: /atom.xml }

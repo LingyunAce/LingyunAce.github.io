@@ -1,0 +1,432 @@
+:root {
+  --notebook-canvas: #ecebeb;
+  --notebook-paper: #fcf9fb;
+  --notebook-ink: #171717;
+  --notebook-muted: #686166;
+  --notebook-grid: rgba(212, 203, 211, 0.38);
+  --notebook-border: #e8e1e5;
+  --notebook-pink: #ef4f98;
+  --notebook-blue: #69b8ff;
+  --notebook-yellow: #ffd34d;
+  --notebook-purple: #9b8cff;
+  --notebook-green: #6bd4a2;
+  --notebook-orange: #ff9e63;
+  --notebook-radius: 32px;
+  --notebook-max: 1280px;
+}
+
+[data-theme="dark"] {
+  --notebook-canvas: #151515;
+  --notebook-paper: #242225;
+  --notebook-ink: #f4f1f3;
+  --notebook-muted: #b8b0b5;
+  --notebook-grid: rgba(255, 255, 255, 0.055);
+  --notebook-border: #454046;
+}
+
+/* Base / reset */
+.notebook-site,
+.notebook-site * {
+  box-sizing: border-box;
+}
+
+.notebook-site {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--notebook-ink);
+  background-color: var(--notebook-canvas);
+  background-image:
+    linear-gradient(var(--notebook-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--notebook-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+.notebook-site a {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.notebook-site button,
+.notebook-site input {
+  color: inherit;
+  font: inherit;
+}
+
+.notebook-site img,
+.notebook-site svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Shared shell */
+.notebook-site .notebook-shell {
+  width: min(calc(100% - 48px), var(--notebook-max));
+  margin-inline: auto;
+}
+
+.notebook-site .notebook-paper,
+.notebook-site .notebook-card {
+  border: 1px solid var(--notebook-border);
+  border-radius: var(--notebook-radius);
+  background: var(--notebook-paper);
+  box-shadow: 0 18px 48px rgba(38, 28, 34, 0.08);
+}
+
+.notebook-site .notebook-main {
+  padding-block: 32px 72px;
+}
+
+/* Header / tabs */
+.notebook-site .notebook-header {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  border-bottom: 1px solid var(--notebook-border);
+  background: color-mix(in srgb, var(--notebook-canvas) 88%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.notebook-site .notebook-header-inner {
+  display: flex;
+  min-height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.notebook-site .notebook-wordmark {
+  width: min(270px, 46vw);
+}
+
+.notebook-site .notebook-tabs,
+.notebook-site .notebook-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notebook-site .notebook-tab,
+.notebook-site .notebook-theme-toggle {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.notebook-site .notebook-tab:hover,
+.notebook-site .notebook-tab[aria-current="page"],
+.notebook-site .notebook-theme-toggle:hover {
+  border-color: var(--notebook-border);
+  background: var(--notebook-paper);
+}
+
+/* Homepage notebook */
+.notebook-site .notebook-home {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+  gap: 24px;
+  padding: clamp(32px, 6vw, 80px);
+}
+
+.notebook-site .notebook-intro {
+  align-self: center;
+}
+
+.notebook-site .notebook-kicker,
+.notebook-site .notebook-meta {
+  color: var(--notebook-muted);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.notebook-site .notebook-title {
+  max-width: 14ch;
+  margin: 12px 0 20px;
+  font-size: clamp(2.75rem, 8vw, 6.75rem);
+  letter-spacing: -0.065em;
+  line-height: 0.94;
+}
+
+/* Destination cards */
+.notebook-site .notebook-destinations {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.notebook-site .notebook-destination {
+  position: relative;
+  display: flex;
+  min-width: 44px;
+  min-height: 44px;
+  aspect-ratio: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--destination-accent, var(--notebook-pink)) 45%, var(--notebook-border));
+  border-radius: 24px;
+  padding: 20px;
+  background: color-mix(in srgb, var(--destination-accent, var(--notebook-pink)) 18%, var(--notebook-paper));
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.notebook-site .notebook-destination:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+  box-shadow: 0 18px 30px rgba(38, 28, 34, 0.12);
+}
+
+.notebook-site .notebook-destination[data-accent="blue"] { --destination-accent: var(--notebook-blue); }
+.notebook-site .notebook-destination[data-accent="pink"] { --destination-accent: var(--notebook-pink); }
+.notebook-site .notebook-destination[data-accent="yellow"] { --destination-accent: var(--notebook-yellow); }
+.notebook-site .notebook-destination[data-accent="purple"] { --destination-accent: var(--notebook-purple); }
+.notebook-site .notebook-destination[data-accent="green"] { --destination-accent: var(--notebook-green); }
+.notebook-site .notebook-destination[data-accent="orange"] { --destination-accent: var(--notebook-orange); }
+
+.notebook-site .notebook-destination-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.notebook-site .notebook-destination-title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.notebook-site .notebook-destination-subtitle {
+  color: var(--notebook-muted);
+  font-size: 0.875rem;
+}
+
+/* Project grid */
+.notebook-site .notebook-project-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.notebook-site .notebook-project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.notebook-site .notebook-project-filter {
+  min-height: 44px;
+  border: 1px solid var(--notebook-border);
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: var(--notebook-paper);
+  cursor: pointer;
+}
+
+.notebook-site .notebook-project-filter[aria-pressed="true"] {
+  border-color: var(--notebook-ink);
+  color: var(--notebook-paper);
+  background: var(--notebook-ink);
+}
+
+.notebook-site .notebook-project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.notebook-site .notebook-project-card {
+  padding: clamp(24px, 4vw, 40px);
+}
+
+.notebook-site .notebook-project-card[hidden] {
+  display: none;
+}
+
+.notebook-site .notebook-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notebook-site .notebook-tag {
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: var(--notebook-muted);
+  background: var(--notebook-canvas);
+  font-size: 0.8125rem;
+}
+
+/* Archive list */
+.notebook-site .notebook-archive-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notebook-site .notebook-archive-item {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 24px;
+  border-bottom: 1px solid var(--notebook-border);
+  padding: 20px 0;
+}
+
+.notebook-site .notebook-archive-date {
+  color: var(--notebook-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* About notes */
+.notebook-site .notebook-about-notes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.notebook-site .notebook-note {
+  min-height: 220px;
+  padding: 28px;
+  transform: rotate(var(--note-rotation, -0.5deg));
+}
+
+.notebook-site .notebook-note:nth-child(even) {
+  --note-rotation: 0.7deg;
+}
+
+.notebook-site .notebook-note-title {
+  display: inline;
+  background: linear-gradient(transparent 58%, color-mix(in srgb, var(--notebook-yellow) 68%, transparent) 58%);
+}
+
+/* Post reading layout */
+.notebook-site .notebook-reading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  gap: clamp(32px, 6vw, 72px);
+  padding: clamp(28px, 6vw, 72px);
+}
+
+.notebook-site .notebook-prose {
+  min-width: 0;
+  font-size: 1.0625rem;
+}
+
+.notebook-site .notebook-prose > * {
+  max-width: 72ch;
+}
+
+.notebook-site .notebook-prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.notebook-site .notebook-reading-aside {
+  color: var(--notebook-muted);
+  font-size: 0.875rem;
+}
+
+/* Footer */
+.notebook-site .notebook-footer {
+  border-top: 1px solid var(--notebook-border);
+  padding-block: 32px;
+}
+
+.notebook-site .notebook-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.notebook-site .notebook-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Dark-theme adjustments */
+[data-theme="dark"] .notebook-site .notebook-paper,
+[data-theme="dark"] .notebook-site .notebook-card {
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme="dark"] .notebook-site .notebook-header {
+  background: color-mix(in srgb, var(--notebook-canvas) 88%, transparent);
+}
+
+/* Responsive: 900px */
+@media (max-width: 900px) {
+  .notebook-site .notebook-home,
+  .notebook-site .notebook-reading {
+    grid-template-columns: 1fr;
+  }
+
+  .notebook-site .notebook-destinations,
+  .notebook-site .notebook-about-notes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .notebook-site .notebook-tabs {
+    overflow-x: auto;
+  }
+}
+
+/* Responsive: 600px */
+@media (max-width: 600px) {
+  .notebook-site .notebook-shell {
+    width: min(calc(100% - 24px), var(--notebook-max));
+  }
+
+  .notebook-site .notebook-header-inner,
+  .notebook-site .notebook-footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-block: 12px;
+  }
+
+  .notebook-site .notebook-home {
+    padding: 28px 20px;
+  }
+
+  .notebook-site .notebook-destinations,
+  .notebook-site .notebook-project-grid,
+  .notebook-site .notebook-about-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .notebook-site .notebook-destination {
+    aspect-ratio: auto;
+    min-height: 148px;
+  }
+
+  .notebook-site .notebook-archive-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

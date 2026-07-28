@@ -99,6 +99,6 @@ reading_progress:
 
 inject:
   head:
-    - <link rel="stylesheet" href="/css/portfolio.styl">
+    - <link rel="stylesheet" href="/css/notebook.css">
   bottom:
-    - <script src="/js/projects-filter.js" defer></script>
+    - <script src="/js/notebook.js" defer></script>
