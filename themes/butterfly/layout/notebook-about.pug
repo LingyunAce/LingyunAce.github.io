@@ -1,0 +1,13 @@
+extends includes/layout.pug
+
+block content
+  section.notebook-about.notebook-shell(aria-labelledby="about-title")
+    header.notebook-page-heading
+      p.notebook-kicker About
+      h1#about-title 关于我
+    .notebook-about-notes
+      each note in site.data.notebook.about_notes
+        article.notebook-note.notebook-card
+          h2.notebook-note-title= note.title
+          each line in note.lines
+            p= line

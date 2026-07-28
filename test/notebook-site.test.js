@@ -82,3 +82,24 @@ test('generated homepage is a six-destination notebook index', () => {
   }
   assert.equal((html.match(/data-destination=/g) || []).length, 6)
 })
+
+test('projects page uses shared shell and renders project data', () => {
+  const html = read('public/projects/index.html')
+  assert.match(html, /class="notebook-header"/)
+  assert.match(html, /aria-current="page"[^>]*>作品</)
+  assert.match(html, /data-project-filter="all"/)
+  assert.match(html, /data-project-status/)
+  assert.equal(
+    (html.match(/data-project-tags=/g) || []).length,
+    6
+  )
+})
+
+test('about page renders approved notes in semantic order', () => {
+  const html = read('public/about/index.html')
+  assert.match(html, /class="notebook-about-notes"/)
+  for (const title of ['Hello', '正在做', '常用工具', '兴趣', '联系我']) {
+    assert.match(html, new RegExp(title))
+  }
+  assert.match(html, /class="notebook-footer"/)
+})

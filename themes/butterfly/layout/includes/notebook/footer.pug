@@ -1,0 +1,10 @@
+footer.notebook-footer
+  .notebook-footer-inner.notebook-shell
+    p &copy; #{new Date().getFullYear()} #{config.author}
+    nav.notebook-footer-links(aria-label="页脚链接")
+      each item in site.data.notebook.footer_links
+        a(
+          href=url_for(item.url)
+          target=item.external ? '_blank' : null
+          rel=item.external ? 'noopener' : null
+        )= item.label

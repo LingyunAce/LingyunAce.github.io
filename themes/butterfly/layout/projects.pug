@@ -1,25 +1,58 @@
 extends includes/layout.pug
 
 block content
-  #projects-page
-    h1.page-title 作品集
-    p.page-subtitle 这里收录了我做过的所有项目。点击标签可以筛选。
+  section.notebook-projects.notebook-shell(aria-labelledby="projects-title")
+    header.notebook-page-heading
+      p.notebook-kicker Projects
+      h1#projects-title 作品集
+      p 这里收录了我做过的所有项目。点击标签可以筛选。
 
-    //- Tag filter chips
-    .tag-filter#project-tag-filter
-      button.tag-chip.tag-chip--active(data-tag="all") 全部
-      each tag in [...new Set(site.data.projects.flatMap(p => p.tags))]
-        button.tag-chip(data-tag=tag)= tag
+    .notebook-project-tools
+      .notebook-project-filters(aria-label="按技术筛选项目")
+        button.notebook-project-filter(type="button" data-project-filter="all" aria-pressed="true") 全部
+        each tag in [...new Set(site.data.projects.flatMap(project => project.tags))]
+          button.notebook-project-filter(type="button" data-project-filter=tag aria-pressed="false")= tag
+      p.notebook-sr-only(data-project-status aria-live="polite")= `显示 ${site.data.projects.length} 个项目`
 
-    //- Project list
-    .project-list
+    .notebook-project-grid
       each project in site.data.projects
-        a.project-item(href=project.link target="_blank" rel="noopener" data-tags=project.tags.join(','))
-          .project-item__cover
-            img(src=project.cover alt=project.name loading="lazy")
-          .project-item__body
-            h3= project.name
-            p= project.desc
-            .project-item__tags
-              each tag in project.tags
-                span.project-item__tag= tag
+        if project.link
+          a.notebook-project.notebook-card(
+            data-project-tags=project.tags.join(',')
+            href=project.link
+            target="_blank"
+            rel="noopener"
+          )
+            .notebook-project__cover
+              if project.cover
+                img(
+                  src=url_for(project.cover)
+                  alt=""
+                  loading="lazy"
+                  onerror="this.parentElement.classList.add('is-fallback')"
+                )
+              .notebook-project__fallback= project.name
+            .notebook-project__body
+              h2= project.name
+              p= project.desc
+              ul.notebook-tags(aria-label="技术")
+                each tag in project.tags
+                  li.notebook-tag= tag
+              span.notebook-sr-only #{project.name}（在新窗口打开）
+        else
+          article.notebook-project.notebook-card(data-project-tags=project.tags.join(','))
+            .notebook-project__cover
+              if project.cover
+                img(
+                  src=url_for(project.cover)
+                  alt=""
+                  loading="lazy"
+                  onerror="this.parentElement.classList.add('is-fallback')"
+                )
+              .notebook-project__fallback= project.name
+            .notebook-project__body
+              h2= project.name
+              p= project.desc
+              ul.notebook-tags(aria-label="技术")
+                each tag in project.tags
+                  li.notebook-tag= tag
