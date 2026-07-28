@@ -222,6 +222,8 @@ test('Pokemon destinations use open desktop and centered mobile layouts', () => 
   assert.match(css, /\.notebook-destination:nth-child\(4\)[^{]*\{[^}]*grid-column:\s*2\s*\/\s*span 2/)
   assert.match(css, /\.notebook-destination:nth-child\(5\)[^{]*\{[^}]*grid-column:\s*4\s*\/\s*span 2/)
   assert.match(css, /@media \(max-width:\s*760px\)[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/)
+  assert.match(css, /@media \(max-width:\s*760px\)[\s\S]*\.notebook-cover \.notebook-destination:nth-child\(4\)[^{]*\{[^}]*grid-column:\s*auto/)
   assert.match(css, /@media \(max-width:\s*760px\)[\s\S]*\.notebook-destination:nth-child\(5\)[^{]*\{[^}]*grid-column:\s*1\s*\/\s*-1/)
   assert.match(css, /@media \(max-width:\s*359px\)[\s\S]*grid-template-columns:\s*1fr/)
+  assert.match(css, /\.notebook-destination__image[^{]*\{[^}]*flex:\s*0\s+0\s+auto/)
 })

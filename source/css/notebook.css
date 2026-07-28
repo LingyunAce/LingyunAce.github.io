@@ -698,6 +698,7 @@
 
 .notebook-site .notebook-destination__image {
   display: block;
+  flex: 0 0 auto;
   width: 72px;
   height: 72px;
   object-fit: contain;
@@ -728,6 +729,10 @@
   }
 
   .notebook-site .notebook-cover .notebook-destination {
+    grid-column: auto;
+  }
+
+  .notebook-site .notebook-cover .notebook-destination:nth-child(4) {
     grid-column: auto;
   }
 
