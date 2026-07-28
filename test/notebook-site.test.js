@@ -71,3 +71,14 @@ test('all interactive notebook controls meet the minimum target size', () => {
     assert.match(css, rule, `${selector} must provide a 44px minimum target`)
   }
 })
+
+test('generated homepage is a six-destination notebook index', () => {
+  const html = read('public/index.html')
+  assert.match(html, /class="notebook-site notebook-home"/)
+  assert.match(html, /data-theme-toggle/)
+  assert.match(html, /aria-label="主要入口"/)
+  for (const id of ['projects', 'writing', 'notes', 'about', 'github', 'contact']) {
+    assert.match(html, new RegExp(`data-destination="${id}"`))
+  }
+  assert.equal((html.match(/data-destination=/g) || []).length, 6)
+})

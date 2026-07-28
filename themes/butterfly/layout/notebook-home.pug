@@ -1,0 +1,38 @@
+include includes/notebook/icon.pug
+
+doctype html
+html(lang=config.language data-theme="light")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title= page.title
+    meta(name="description" content=page.description)
+    link(rel="stylesheet" href=url_for("/css/notebook.css"))
+    script(src=url_for("/js/notebook.js") defer)
+  body.notebook-site.notebook-home
+    a.notebook-skip(href="#main") 跳到主内容
+    header.notebook-homebar
+      a.notebook-wordmark(href="/" aria-label="凌云首页")
+        img(src=url_for("/img/notebook/wordmark.svg") alt="凌云 · LingyunAce")
+      button.notebook-theme-toggle(type="button" data-theme-toggle aria-pressed="false" aria-label="切换到暗色主题") ◐
+    main#main
+      section.notebook-cover(aria-labelledby="home-role")
+        .notebook-rings(aria-hidden="true")
+          each ring in [1, 2, 3, 4, 5, 6, 7, 8]
+            i
+        img.notebook-cover__wordmark(src=url_for("/img/notebook/wordmark.svg") alt="")
+        p#home-role.notebook-cover__role= site.data.notebook.role
+        nav.notebook-destinations(aria-label="主要入口")
+          each item in site.data.notebook.destinations
+            a.notebook-destination(
+              href=url_for(item.url)
+              class=`is-${item.accent}`
+              data-destination=item.id
+              target=item.external ? "_blank" : null
+              rel=item.external ? "noopener" : null
+            )
+              +notebookIcon(item.id, item.label)
+              span.notebook-destination__label= item.label
+              small= item.subtitle
+    footer.notebook-home-footer
+      span &copy; #{new Date().getFullYear()} 凌云

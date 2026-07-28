@@ -1,0 +1,3 @@
+mixin notebookIcon(name, label)
+  svg.notebook-icon(role="img" aria-label=label)
+    use(href=url_for(`/img/notebook/icons.svg#icon-${name}`))
