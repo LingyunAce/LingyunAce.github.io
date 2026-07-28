@@ -213,3 +213,15 @@ test('generated core pages expose skip links and labeled theme controls', () => 
     assert.match(html, /aria-label="切换到(浅色|暗色)主题"/)
   }
 })
+
+test('Pokemon destinations use open desktop and centered mobile layouts', () => {
+  const css = read('source/css/notebook.css')
+  assert.match(css, /grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*78px\)\)/)
+  assert.match(css, /column-gap:\s*36px/)
+  assert.match(css, /row-gap:\s*28px/)
+  assert.match(css, /\.notebook-destination:nth-child\(4\)[^{]*\{[^}]*grid-column:\s*2\s*\/\s*span 2/)
+  assert.match(css, /\.notebook-destination:nth-child\(5\)[^{]*\{[^}]*grid-column:\s*4\s*\/\s*span 2/)
+  assert.match(css, /@media \(max-width:\s*760px\)[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/)
+  assert.match(css, /@media \(max-width:\s*760px\)[\s\S]*\.notebook-destination:nth-child\(5\)[^{]*\{[^}]*grid-column:\s*1\s*\/\s*-1/)
+  assert.match(css, /@media \(max-width:\s*359px\)[\s\S]*grid-template-columns:\s*1fr/)
+})
