@@ -147,6 +147,20 @@ git push -u origin main
 - **首页文案**：编辑 `source/index.md` 配合 `themes/butterfly/layout/portfolio.pug`
 - **关于页**：编辑 `source/about/index.md`
 
+## 验证
+
+```bash
+npm test
+npm run clean
+npm run build
+npm run server
+```
+
+首页、作品、文章归档和关于页共享 `source/css/notebook.css` 与
+`source/js/notebook.js`。首页入口和关于便签维护在
+`source/_data/notebook.yml`，项目继续维护在
+`source/_data/projects.yml`。
+
 ## 📄 许可证
 
 MIT

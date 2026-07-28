@@ -555,14 +555,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
-}
-
 /* Index-style notebook homepage */
 .notebook-site.notebook-home {
   display: grid;
@@ -732,4 +724,16 @@
 
 @media (max-width: 359px) {
   .notebook-site .notebook-cover .notebook-destinations { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .notebook-site .notebook-destination:hover {
+    transform: none;
+  }
 }
