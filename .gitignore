@@ -10,3 +10,4 @@ db.json
 _config.yml.bak
 .firecrawl/
 .superpowers/
+.worktrees/
