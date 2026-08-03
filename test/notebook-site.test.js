@@ -194,7 +194,7 @@ test('archive is a compact chronological notebook list', () => {
 })
 
 test('post pages keep article content inside the notebook reading shell', () => {
-  const html = read('public/2026/06/01/hexo-setup-notes/index.html')
+  const html = read('public/posts/hexo-setup/index.html')
   assert.match(html, /class="notebook-post"/)
   assert.match(html, /class="[^"]*notebook-reading[^"]*"/)
   assert.match(html, /Hexo 建站笔记/)
