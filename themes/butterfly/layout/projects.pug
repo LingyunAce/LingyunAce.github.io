@@ -23,15 +23,12 @@ block content
             target="_blank"
             rel="noopener"
           )
-            .notebook-project__cover
-              if project.cover
-                img(
-                  src=url_for(project.cover)
-                  alt=""
-                  loading="lazy"
-                  onerror="this.parentElement.classList.add('is-fallback')"
-                )
-              .notebook-project__fallback= project.name
+            .notebook-project__cover(style=`--project-accent: ${project.accent || '#4f7cff'}`)
+              span.notebook-project__monogram(aria-hidden="true")= project.name.charAt(0)
+              span.notebook-project__cover-name= project.name
+              ul.notebook-project__cover-tags(aria-hidden="true")
+                each tag in project.tags.slice(0, 3)
+                  li.notebook-project__cover-tag= tag
             .notebook-project__body
               h2= project.name
               p= project.desc
@@ -41,15 +38,12 @@ block content
               span.notebook-sr-only #{project.name}（在新窗口打开）
         else
           article.notebook-project.notebook-card(data-project-tags=project.tags.join(','))
-            .notebook-project__cover
-              if project.cover
-                img(
-                  src=url_for(project.cover)
-                  alt=""
-                  loading="lazy"
-                  onerror="this.parentElement.classList.add('is-fallback')"
-                )
-              .notebook-project__fallback= project.name
+            .notebook-project__cover(style=`--project-accent: ${project.accent || '#4f7cff'}`)
+              span.notebook-project__monogram(aria-hidden="true")= project.name.charAt(0)
+              span.notebook-project__cover-name= project.name
+              ul.notebook-project__cover-tags(aria-hidden="true")
+                each tag in project.tags.slice(0, 3)
+                  li.notebook-project__cover-tag= tag
             .notebook-project__body
               h2= project.name
               p= project.desc
