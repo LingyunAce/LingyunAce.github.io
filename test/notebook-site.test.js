@@ -166,13 +166,14 @@ test('generated homepage is a five-destination Pokemon notebook index', () => {
 
 test('projects page uses shared shell and renders project data', () => {
   const html = read('public/projects/index.html')
+  const projectCount = (read('source/_data/projects.yml').match(/^- name:/gm) || []).length
   assert.match(html, /class="notebook-header"/)
   assert.match(html, /aria-current="page"[^>]*>作品</)
   assert.match(html, /data-project-filter="all"/)
   assert.match(html, /data-project-status/)
   assert.equal(
     (html.match(/data-project-tags=/g) || []).length,
-    6
+    projectCount
   )
 })
 
