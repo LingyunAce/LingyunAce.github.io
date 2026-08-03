@@ -2,3 +2,9 @@
 # highlight: true 的项目会显示在首页
 # 字段说明见 docs/superpowers/specs/2026-06-01-personal-portfolio-design.md
 
+- name: RK3576 Ubuntu 固件项目
+  cover: /img/projects/cover1.svg
+  desc: 基于 LubanCat SDK 的 RK3576 开发板 Ubuntu 22.04 定制固件项目，集成离线语音识别与系统补丁
+  tags: [RK3576, Ubuntu, 嵌入式, LubanCat]
+  link: https://LingyunAce.github.io/posts/rk3576-ubuntu-firmware/
+  highlight: true
