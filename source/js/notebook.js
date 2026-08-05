@@ -19,6 +19,42 @@
       .includes(activeTag)
   }
 
+  function legacyCopy(text) {
+    const textarea = document.createElement('textarea')
+    textarea.value = text
+    textarea.setAttribute('readonly', '')
+    textarea.style.position = 'fixed'
+    textarea.style.opacity = '0'
+    document.body.appendChild(textarea)
+    textarea.select()
+    try { document.execCommand('copy') } catch (_) {}
+    textarea.remove()
+  }
+
+  function showToast(message) {
+    document.querySelectorAll('.notebook-toast').forEach(toast => toast.remove())
+    const toast = document.createElement('div')
+    toast.className = 'notebook-toast'
+    toast.setAttribute('role', 'status')
+    toast.textContent = message
+    document.body.appendChild(toast)
+    window.setTimeout(() => toast.remove(), 2400)
+  }
+
+  function copyCurrentUrl() {
+    const url = window.location.href
+    const done = () => showToast('链接已复制，去微信粘贴给好友吧')
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done).catch(() => {
+        legacyCopy(url)
+        done()
+      })
+    } else {
+      legacyCopy(url)
+      done()
+    }
+  }
+
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme
     document.querySelectorAll('[data-theme-toggle]').forEach(button => {
@@ -63,6 +99,10 @@
         const status = document.querySelector('[data-project-status]')
         if (status) status.textContent = `显示 ${visibleCount} 个项目`
       })
+    })
+
+    document.querySelectorAll('[data-share]').forEach(button => {
+      button.addEventListener('click', copyCurrentUrl)
     })
   }
 
