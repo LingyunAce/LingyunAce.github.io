@@ -68,9 +68,23 @@ copy_button:
   enable: true
   show_text: true
 
-# Comments (DISABLED by default)
+# Comments — Giscus (GitHub Discussions)
 comments:
-  use: []
+  use: Giscus
+
+# Giscus
+# https://giscus.app/
+giscus:
+  repo: LingyunAce/LingyunAce.github.io
+  repo_id: R_kgDOOxIfdg
+  category_id: DIC_kwDOOxIfds4DCtRb
+  light_theme: light
+  dark_theme: dark
+  js:
+  option:
+    data-lang: zh-CN
+    data-input-position: top
+    data-loading: lazy
 
 # Analytics (DISABLED by default)
 analytics:
