@@ -4,11 +4,11 @@
 # Site
 # NOTE: bracketed placeholders below MUST be quoted — otherwise YAML
 # parses them as arrays and downstream `.replace()` calls crash.
-title: "hulingyun"
+title: "凌云 LingyunAce"
 subtitle: "独立开发者 / 工程师，欢迎来到我的个人作品集"
 description: "记录技术实践、项目经验与日常思考的个人博客"
 keywords: [个人博客, 作品集, 技术]
-author: "hulingyun"
+author: "凌云"
 email: 543491395@qq.com
 language: zh-CN
 timezone: Asia/Shanghai

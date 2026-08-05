@@ -93,6 +93,10 @@ analytics:
 # Advertisement (DISABLED by default)
 advertisement: false
 
+# Third-party assets served locally — no jsdelivr dependency (unreliable in CN)
+CDN:
+  third_party_provider: local
+
 # Mathjax / KaTeX (off by default)
 mathjax:
   enable: false
@@ -105,7 +109,7 @@ reward:
 
 # Share buttons (off)
 share:
-  enable: false
+  use:
 
 # Article reading progress bar
 reading_progress:
