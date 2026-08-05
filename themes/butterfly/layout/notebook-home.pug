@@ -7,8 +7,8 @@ html(lang=config.language data-theme="light")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title= page.title
     meta(name="description" content=page.description)
-    link(rel="stylesheet" href=url_for("/css/notebook.css"))
-    script(src=url_for("/js/notebook.js") defer)
+    link(rel="stylesheet" href=url_for("/css/notebook.css?v=2"))
+    script(src=url_for("/js/notebook.js?v=2") defer)
   body.notebook-site.notebook-home
     a.notebook-skip(href="#main") 跳到主内容
     header.notebook-homebar

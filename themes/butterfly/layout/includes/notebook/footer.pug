@@ -3,11 +3,8 @@ footer.notebook-footer
     p &copy; #{new Date().getFullYear()} #{config.author}
     nav.notebook-footer-links(aria-label="页脚链接")
       each item in site.data.notebook.footer_links
-        if item.share
-          button.notebook-footer-share(type='button' data-share=item.share)= item.label
-        else
-          a(
-            href=url_for(item.url)
-            target=item.external ? '_blank' : null
-            rel=item.external ? 'noopener' : null
-          )= item.label
+        a(
+          href=url_for(item.url)
+          target=item.external ? '_blank' : null
+          rel=item.external ? 'noopener' : null
+        )= item.label

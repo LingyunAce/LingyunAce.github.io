@@ -572,18 +572,43 @@
   gap: 16px;
 }
 
-.notebook-site .notebook-footer-links a,
-.notebook-site .notebook-footer-links button {
+.notebook-site .notebook-footer-links a {
   display: inline-flex;
   min-width: 44px;
   min-height: 44px;
   align-items: center;
-  border: 0;
-  padding: 0;
-  background: none;
-  color: inherit;
+}
+
+/* Share-to-wechat button on the comment header row */
+.notebook-site .comment-head {
+  display: flex;
+  align-items: center;
+}
+
+.notebook-site .comment-head .comment-headline {
+  margin-right: auto;
+}
+
+.notebook-site .notebook-share-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  border: 1px solid var(--notebook-border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: var(--notebook-canvas);
+  color: var(--notebook-muted);
   font: inherit;
+  font-size: 0.875rem;
   cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.notebook-site .notebook-share-button:hover {
+  color: var(--notebook-ink);
+  border-color: var(--notebook-ink);
+  transform: translateY(-1px);
 }
 
 /* Copy-link toast */

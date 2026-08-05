@@ -35,4 +35,3 @@ footer_links:
   - { label: GitHub, url: "https://github.com/LingyunAce", external: true }
   - { label: 邮箱, url: "mailto:543491395@qq.com" }
   - { label: RSS, url: /atom.xml }
-  - { label: 分享到微信, share: wechat }
