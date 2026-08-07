@@ -8,6 +8,7 @@ html(lang=config.language data-theme="light")
     title= page.title
     meta(name="description" content=page.description)
     link(rel="stylesheet" href=url_for("/css/notebook.css?v=2"))
+    link(rel="icon" type="image/png" href=url_for("/img/favicon.png"))
     script(src=url_for("/js/notebook.js?v=2") defer)
   body.notebook-site.notebook-home
     a.notebook-skip(href="#main") 跳到主内容
