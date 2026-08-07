@@ -14,7 +14,7 @@ language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-url: https://LingyunAce.github.io
+url: https://biubiutoo.cn
 root: /
 permalink: posts/:abbrlink/
 permalink_defaults:
