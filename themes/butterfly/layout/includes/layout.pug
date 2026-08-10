@@ -1,6 +1,7 @@
 - var globalPageType = getPageType(page, is_home)
 - const notebookPaths = ['projects/index.html', 'about/index.html']
 - const isNotebookPage = notebookPaths.includes(page.path) || ['archive', 'post'].includes(globalPageType)
+- if (globalPageType === 'archive' && !page.description) page.description = '按时间浏览凌云的技术文章、项目实践与日常思考。'
 - if (isNotebookPage) page.aside = false
 - var htmlClassHideAside = theme.aside.enable && theme.aside.hide ? 'hide-aside' : ''
 - page.aside = globalPageType === 'archive' ? theme.aside.display.archive: globalPageType === 'category' ? theme.aside.display.category : globalPageType === 'tag' ? theme.aside.display.tag : page.aside

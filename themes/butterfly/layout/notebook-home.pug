@@ -1,5 +1,43 @@
 include includes/notebook/icon.pug
 
+-
+  const homeUrl = full_url_for('/')
+  const homeImage = full_url_for('/img/favicon-512.png')
+  const homeTitle = page.title || config.title
+  const homeDescription = page.description || config.description
+  const githubProfile = site.data.notebook.nav.find(item => item.id === 'github')
+  const homeStructuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${homeUrl}#website`,
+        url: homeUrl,
+        name: config.title,
+        description: homeDescription,
+        inLanguage: config.language
+      },
+      {
+        '@type': 'Person',
+        '@id': `${homeUrl}#person`,
+        name: config.author,
+        alternateName: config.title,
+        url: homeUrl,
+        sameAs: githubProfile ? [githubProfile.url] : []
+      },
+      {
+        '@type': 'ProfilePage',
+        '@id': `${homeUrl}#profile`,
+        url: homeUrl,
+        name: homeTitle,
+        description: homeDescription,
+        inLanguage: config.language,
+        isPartOf: { '@id': `${homeUrl}#website` },
+        mainEntity: { '@id': `${homeUrl}#person` }
+      }
+    ]
+  }
+
 doctype html
 html(lang=config.language data-theme="light")
   head
@@ -7,9 +45,22 @@ html(lang=config.language data-theme="light")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title= page.title
     meta(name="description" content=page.description)
+    link(rel="canonical" href=homeUrl)
+    meta(property="og:type" content="website")
+    meta(property="og:title" content=homeTitle)
+    meta(property="og:description" content=homeDescription)
+    meta(property="og:url" content=homeUrl)
+    meta(property="og:image" content=homeImage)
+    meta(property="og:site_name" content=config.title)
+    meta(name="twitter:card" content="summary")
+    meta(name="twitter:title" content=homeTitle)
+    meta(name="twitter:description" content=homeDescription)
+    meta(name="twitter:image" content=homeImage)
     link(rel="stylesheet" href=url_for("/css/notebook.css?v=2"))
     link(rel="icon" type="image/png" href=url_for("/img/favicon.png"))
     script(src=url_for("/js/notebook.js?v=2") defer)
+    script(type="application/ld+json").
+      !{JSON.stringify(homeStructuredData)}
   body.notebook-site.notebook-home
     a.notebook-skip(href="#main") 跳到主内容
     header.notebook-homebar
@@ -17,12 +68,13 @@ html(lang=config.language data-theme="light")
         img(src=url_for("/img/notebook/wordmark.svg") alt="凌云 · LingyunAce")
       button.notebook-theme-toggle(type="button" data-theme-toggle aria-pressed="false" aria-label="切换到暗色主题") ◐
     main#main
-      section.notebook-cover(aria-labelledby="home-role")
+      section.notebook-cover(aria-labelledby="home-title")
+        h1#home-title.notebook-sr-only= homeTitle
         .notebook-rings(aria-hidden="true")
           each ring in [1, 2, 3, 4, 5, 6, 7, 8]
             i
         img.notebook-cover__wordmark(src=url_for("/img/notebook/wordmark.svg") alt="")
-        p#home-role.notebook-cover__role= site.data.notebook.role
+        p.notebook-cover__role= site.data.notebook.role
         nav.notebook-destinations(aria-label="主要入口")
           each item in site.data.notebook.destinations
             a.notebook-destination(
@@ -33,7 +85,7 @@ html(lang=config.language data-theme="light")
               rel=item.external ? "noopener" : null
             )
               if item.icon
-                img.notebook-destination__image(src=url_for(item.icon) alt=item.label)
+                img.notebook-destination__image(src=url_for(item.icon) alt="")
               else
                 +notebookIcon(item.id, item.label)
               span.notebook-destination__label= item.label
