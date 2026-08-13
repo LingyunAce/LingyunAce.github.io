@@ -755,38 +755,102 @@
   border: 1px solid var(--notebook-border);
   border-radius: clamp(28px, 5vw, 56px);
   padding: clamp(36px, 8vw, 104px) clamp(20px, 7vw, 96px);
-  background: var(--notebook-paper);
+  background:
+    linear-gradient(var(--notebook-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--notebook-grid) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 42%),
+    var(--notebook-paper);
+  background-size: 24px 24px, 24px 24px, 100% 100%;
   box-shadow: 0 24px 56px rgba(38, 28, 34, 0.1);
   text-align: center;
 }
 
-.notebook-site .notebook-rings {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  display: grid;
-  width: min(76vw, 860px);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%) rotate(-8deg);
-  place-items: center;
-  pointer-events: none;
+/* Daily rotating cover schemes — notebook.js sets data-scheme = dayOfYear % 7
+   0 (default) paper-highlight · 1 sci-fi · 2 anime · 3 geometric · 4 xbox · 5 playstation · 6 zelda */
+.notebook-site .notebook-cover[data-scheme="1"] {
+  background:
+    linear-gradient(rgba(0, 229, 255, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.10) 1px, transparent 1px),
+    radial-gradient(60% 70% at 85% 15%, rgba(0, 229, 255, 0.30), transparent 60%),
+    radial-gradient(55% 65% at 15% 80%, rgba(168, 85, 247, 0.35), transparent 60%),
+    linear-gradient(160deg, #0b1020, #151c35);
+  background-size: 34px 34px, 34px 34px, auto, auto, auto;
 }
 
-.notebook-site .notebook-rings i {
-  grid-area: 1 / 1;
-  width: calc(100% - (var(--ring) * 9%));
-  height: calc(100% - (var(--ring) * 9%));
-  border: 1px solid color-mix(in srgb, var(--notebook-pink) 34%, transparent);
-  border-radius: 50%;
+.notebook-site .notebook-cover[data-scheme="2"] {
+  background:
+    radial-gradient(75% 55% at 18% 8%, rgba(255, 255, 255, 0.95), transparent 60%),
+    radial-gradient(65% 50% at 78% 20%, rgba(255, 255, 255, 0.9), transparent 55%),
+    radial-gradient(55% 55% at 85% 88%, rgba(255, 183, 213, 0.45), transparent 60%),
+    radial-gradient(50% 50% at 12% 90%, rgba(255, 183, 213, 0.35), transparent 60%),
+    linear-gradient(180deg, #6fc3ff, #b9e2ff 55%, #eaf6ff);
 }
 
-.notebook-site .notebook-rings i:nth-child(1) { --ring: 0; }
-.notebook-site .notebook-rings i:nth-child(2) { --ring: 1; }
-.notebook-site .notebook-rings i:nth-child(3) { --ring: 2; }
-.notebook-site .notebook-rings i:nth-child(4) { --ring: 3; }
-.notebook-site .notebook-rings i:nth-child(5) { --ring: 4; }
-.notebook-site .notebook-rings i:nth-child(6) { --ring: 5; }
-.notebook-site .notebook-rings i:nth-child(7) { --ring: 6; }
-.notebook-site .notebook-rings i:nth-child(8) { --ring: 7; }
+.notebook-site .notebook-cover[data-scheme="3"] {
+  background:
+    conic-gradient(from 210deg at 82% 78%, #ffd34d 0 12%, transparent 12%),
+    radial-gradient(32% 42% at 16% 22%, rgba(239, 79, 152, 0.5), transparent 70%),
+    radial-gradient(28% 38% at 88% 30%, rgba(105, 184, 255, 0.5), transparent 70%),
+    linear-gradient(160deg, #fff6ee, #fdeff5);
+}
+
+.notebook-site .notebook-cover[data-scheme="4"] {
+  background:
+    radial-gradient(70% 80% at 50% 45%, rgba(16, 124, 16, 0.40), transparent 70%),
+    radial-gradient(60% 70% at 85% 15%, rgba(16, 124, 16, 0.30), transparent 60%),
+    linear-gradient(160deg, #071207, #0d200d);
+}
+
+.notebook-site .notebook-cover[data-scheme="5"] {
+  background:
+    radial-gradient(65% 75% at 50% 40%, rgba(0, 91, 170, 0.50), transparent 65%),
+    radial-gradient(60% 70% at 20% 20%, rgba(0, 55, 145, 0.40), transparent 60%),
+    linear-gradient(160deg, #06122e, #0a1d47);
+}
+
+.notebook-site .notebook-cover[data-scheme="6"] {
+  background:
+    radial-gradient(60% 65% at 50% 25%, rgba(212, 155, 45, 0.35), transparent 60%),
+    radial-gradient(70% 75% at 50% 95%, rgba(88, 142, 60, 0.30), transparent 60%),
+    radial-gradient(40% 45% at 20% 20%, rgba(255, 240, 180, 0.5), transparent 60%),
+    linear-gradient(180deg, #f7f0dc, #e9edd6);
+}
+
+/* Dark-scheme covers invert text/cards (1 sci-fi · 4 xbox · 5 playstation) */
+.notebook-site .notebook-cover[data-scheme="1"],
+.notebook-site .notebook-cover[data-scheme="4"],
+.notebook-site .notebook-cover[data-scheme="5"] {
+  color: #eaf6ff;
+}
+
+.notebook-site .notebook-cover[data-scheme="1"] .notebook-cover__role,
+.notebook-site .notebook-cover[data-scheme="4"] .notebook-cover__role,
+.notebook-site .notebook-cover[data-scheme="5"] .notebook-cover__role {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.notebook-site .notebook-cover[data-scheme="1"] .notebook-destination,
+.notebook-site .notebook-cover[data-scheme="4"] .notebook-destination,
+.notebook-site .notebook-cover[data-scheme="5"] .notebook-destination {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.notebook-site .notebook-cover[data-scheme="1"] .notebook-destination small,
+.notebook-site .notebook-cover[data-scheme="4"] .notebook-destination small,
+.notebook-site .notebook-cover[data-scheme="5"] .notebook-destination small {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Dark theme: unify every scheme to a dark paper-highlight so text stays legible */
+[data-theme="dark"] .notebook-site .notebook-cover {
+  background:
+    linear-gradient(var(--notebook-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--notebook-grid) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 42%),
+    var(--notebook-paper);
+  background-size: 24px 24px, 24px 24px, 100% 100%;
+}
 
 .notebook-site .notebook-cover__wordmark,
 .notebook-site .notebook-cover__role,
@@ -909,8 +973,6 @@
     min-height: 0;
     padding-block: 52px;
   }
-
-  .notebook-site .notebook-rings { display: none; }
 }
 
 @media (max-width: 359px) {

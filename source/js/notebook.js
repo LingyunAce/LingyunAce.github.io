@@ -55,6 +55,16 @@
     }
   }
 
+  function applyDailyScheme() {
+    const now = new Date()
+    const startOfYear = new Date(now.getFullYear(), 0, 1)
+    const dayIndex = Math.floor((now.getTime() - startOfYear.getTime()) / 86400000)
+    const scheme = ((dayIndex % 7) + 7) % 7
+    document.querySelectorAll('.notebook-cover').forEach(cover => {
+      cover.setAttribute('data-scheme', String(scheme))
+    })
+  }
+
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme
     document.querySelectorAll('[data-theme-toggle]').forEach(button => {
@@ -73,6 +83,7 @@
       savedTheme = window.localStorage.getItem(STORAGE_KEY)
     } catch (_) {}
     applyTheme(resolveTheme(savedTheme, prefersDark))
+    applyDailyScheme()
 
     document.querySelectorAll('[data-theme-toggle]').forEach(button => {
       button.addEventListener('click', () => {
