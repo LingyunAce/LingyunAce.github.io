@@ -117,6 +117,6 @@ reading_progress:
 
 inject:
   head:
-    - <link rel="stylesheet" href="/css/notebook.css?v=5">
+    - <link rel="stylesheet" href="/css/notebook.css?v=6">
   bottom:
-    - <script src="/js/notebook.js?v=5" defer></script>
+    - <script src="/js/notebook.js?v=6" defer></script>

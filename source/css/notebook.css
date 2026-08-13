@@ -852,16 +852,10 @@
   background-size: 24px 24px, 24px 24px, 100% 100%;
 }
 
-.notebook-site .notebook-cover__wordmark,
 .notebook-site .notebook-cover__role,
 .notebook-site .notebook-destinations {
   position: relative;
   z-index: 1;
-}
-
-.notebook-site .notebook-cover__wordmark {
-  width: min(460px, 82vw);
-  margin: 0 auto;
 }
 
 .notebook-site .notebook-cover__role {

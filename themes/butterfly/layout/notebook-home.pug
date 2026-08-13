@@ -56,9 +56,9 @@ html(lang=config.language data-theme="light")
     meta(name="twitter:title" content=homeTitle)
     meta(name="twitter:description" content=homeDescription)
     meta(name="twitter:image" content=homeImage)
-    link(rel="stylesheet" href=url_for("/css/notebook.css?v=5"))
+    link(rel="stylesheet" href=url_for("/css/notebook.css?v=6"))
     link(rel="icon" type="image/png" href=url_for("/img/favicon.png"))
-    script(src=url_for("/js/notebook.js?v=5") defer)
+    script(src=url_for("/js/notebook.js?v=6") defer)
     script(type="application/ld+json").
       !{JSON.stringify(homeStructuredData)}
   body.notebook-site.notebook-home
@@ -70,7 +70,6 @@ html(lang=config.language data-theme="light")
     main#main
       section.notebook-cover(aria-labelledby="home-title")
         h1#home-title.notebook-sr-only= homeTitle
-        img.notebook-cover__wordmark(src=url_for("/img/notebook/wordmark.svg") alt="")
         p.notebook-cover__role= site.data.notebook.role
         nav.notebook-destinations(aria-label="主要入口")
           each item in site.data.notebook.destinations
