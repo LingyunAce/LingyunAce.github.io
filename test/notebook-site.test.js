@@ -138,7 +138,7 @@ test('all interactive notebook controls meet the minimum target size', () => {
 test('homepage template renders configured images with an SVG fallback', () => {
   const template = read('themes/butterfly/layout/notebook-home.pug')
   assert.match(template, /if item\.icon/)
-  assert.match(template, /img\.notebook-destination__image\(src=url_for\(item\.icon\) alt=item\.label\)/)
+  assert.match(template, /img\.notebook-destination__image\(src=url_for\(item\.icon\) alt=""\)/)
   assert.match(template, /else\s+\+notebookIcon\(item\.id, item\.label\)/)
 })
 
@@ -162,6 +162,30 @@ test('generated homepage is a five-destination Pokemon notebook index', () => {
   assert.doesNotMatch(html, /data-destination="notes"/)
   assert.equal((html.match(/data-destination=/g) || []).length, 5)
   assert.equal((html.match(/class="notebook-destination__image"/g) || []).length, 5)
+  assert.equal((html.match(/class="notebook-destination__image"[^>]*alt=""/g) || []).length, 5)
+})
+
+test('generated homepage exposes complete social metadata and structured identity', () => {
+  const html = read('public/index.html')
+  const homeUrl = 'https://biubiutoo.cn/'
+  const homeImage = `${homeUrl}img/favicon-512.png`
+
+  assert.match(html, new RegExp(`<link rel="canonical" href="${homeUrl}">`))
+  assert.match(html, /<meta property="og:type" content="website">/)
+  assert.match(html, new RegExp(`<meta property="og:url" content="${homeUrl}">`))
+  assert.match(html, new RegExp(`<meta property="og:image" content="${homeImage}">`))
+  assert.match(html, /<meta name="twitter:card" content="summary">/)
+  assert.match(html, new RegExp(`<meta name="twitter:image" content="${homeImage}">`))
+  assert.equal((html.match(/<h1\b/g) || []).length, 1)
+  assert.match(html, /<h1 class="notebook-sr-only" id="home-title">凌云 · 独立开发者<\/h1>/)
+
+  const jsonLd = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)
+  assert.ok(jsonLd, 'homepage must include JSON-LD')
+  const data = JSON.parse(jsonLd[1])
+  assert.equal(data['@context'], 'https://schema.org')
+  assert.deepEqual(data['@graph'].map(item => item['@type']), ['WebSite', 'Person', 'ProfilePage'])
+  assert.equal(data['@graph'][1].url, homeUrl)
+  assert.deepEqual(data['@graph'][1].sameAs, ['https://github.com/LingyunAce'])
 })
 
 test('projects page uses shared shell and renders project data', () => {
@@ -191,6 +215,9 @@ test('archive is a compact chronological notebook list', () => {
   assert.match(html, /class="notebook-archive"/)
   assert.match(html, /class="notebook-archive-item"/)
   assert.match(html, /aria-current="page"[^>]*>文章</)
+  assert.equal((html.match(/<h1\b/g) || []).length, 1)
+  assert.match(html, /<h1 class="article-sort-title">全部文章 - \d+<\/h1>/)
+  assert.match(html, /<meta name="description" content="按时间浏览凌云的技术文章、项目实践与日常思考。">/)
 })
 
 test('post pages keep article content inside the notebook reading shell', () => {
