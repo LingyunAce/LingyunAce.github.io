@@ -1,0 +1,5 @@
+id: home-footer
+name: 首页页脚
+description: 首页底部版权行
+slots: [home.footer]
+defaults: {}

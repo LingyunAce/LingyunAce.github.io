@@ -1,0 +1,5 @@
+id: scheme-picker
+name: 背景风格选择
+description: 首页右下角浮动背景风格选择器
+slots: [home.scheme]
+defaults: {}

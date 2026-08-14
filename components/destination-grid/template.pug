@@ -1,0 +1,16 @@
+nav.notebook-destinations(aria-label="主要入口")
+  each item in site.data.notebook.destinations
+    a.notebook-destination(
+      href=url_for(item.url)
+      class=`is-${item.accent}`
+      data-destination=item.id
+      target=item.external ? "_blank" : null
+      rel=item.external ? "noopener" : null
+    )
+      if item.icon
+        img.notebook-destination__image(src=url_for(item.icon) alt="")
+      else
+        svg.notebook-icon(role="img" aria-label=item.label)
+          use(href=url_for(`/img/notebook/icons.svg#icon-${item.id}`))
+      span.notebook-destination__label= item.label
+      small= item.subtitle

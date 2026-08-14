@@ -1,0 +1,5 @@
+id: home-header
+name: 首页头部
+description: 首页顶部字标 + 主题切换（无标签导航）
+slots: [home.header]
+defaults: {}

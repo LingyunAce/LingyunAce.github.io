@@ -1,0 +1,5 @@
+id: role-line
+name: 角色说明
+description: 首页封面中的一行角色说明
+slots: [home.hero]
+defaults: {}

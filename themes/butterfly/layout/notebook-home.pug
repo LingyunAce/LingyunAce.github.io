@@ -1,5 +1,3 @@
-include includes/notebook/icon.pug
-
 -
   const homeUrl = full_url_for('/')
   const homeImage = full_url_for('/img/favicon-512.png')
@@ -57,68 +55,19 @@ html(lang=config.language data-theme="light")
     meta(name="twitter:description" content=homeDescription)
     meta(name="twitter:image" content=homeImage)
     link(rel="stylesheet" href=url_for("/css/notebook.css?v=6"))
+    link(rel="stylesheet" href=url_for("/css/components.css"))
     link(rel="icon" type="image/png" href=url_for("/img/favicon.png"))
     script(src=url_for("/js/notebook.js?v=6") defer)
+    script(src=url_for("/js/components.js") defer)
     script(type="application/ld+json").
       !{JSON.stringify(homeStructuredData)}
   body.notebook-site.notebook-home
     a.notebook-skip(href="#main") 跳到主内容
-    header.notebook-homebar
-      a.notebook-wordmark(href="/" aria-label="凌云首页")
-        img(src=url_for("/img/notebook/wordmark.svg") alt="凌云 · LingyunAce")
-      button.notebook-theme-toggle(type="button" data-theme-toggle aria-pressed="false" aria-label="切换到暗色主题") ◐
+    != render_slot('header')
     main#main
       section.notebook-cover(aria-labelledby="home-title")
         h1#home-title.notebook-sr-only= homeTitle
-        p.notebook-cover__role= site.data.notebook.role
-        nav.notebook-destinations(aria-label="主要入口")
-          each item in site.data.notebook.destinations
-            a.notebook-destination(
-              href=url_for(item.url)
-              class=`is-${item.accent}`
-              data-destination=item.id
-              target=item.external ? "_blank" : null
-              rel=item.external ? "noopener" : null
-            )
-              if item.icon
-                img.notebook-destination__image(src=url_for(item.icon) alt="")
-              else
-                +notebookIcon(item.id, item.label)
-              span.notebook-destination__label= item.label
-              small= item.subtitle
-    footer.notebook-home-footer
-      span &copy; #{new Date().getFullYear()} 凌云
-
-    button.notebook-scheme-toggle(type='button' data-scheme-toggle aria-label='选择背景风格' aria-expanded='false')
-      svg.notebook-icon(viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true')
-        path(d='M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-2 0-.5-.2-1-.5-1.3-.3-.3-.5-.8-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4c0-4-4-7.7-9-7.7z')
-        circle(cx='7.5' cy='11.5' r='1')
-        circle(cx='10.5' cy='7.5' r='1')
-        circle(cx='15' cy='7.5' r='1')
-    .notebook-scheme-panel#scheme-panel(role='dialog' aria-label='背景风格选择' hidden)
-      p.notebook-scheme-panel__title 背景风格
-      .notebook-scheme-options
-        button(type='button' data-scheme-choice='auto')
-          span.notebook-scheme-swatch.notebook-scheme-swatch--auto
-          span 自动轮换
-        button(type='button' data-scheme-choice='0')
-          span.notebook-scheme-swatch.notebook-scheme-swatch--0
-          span 纸张高光
-        button(type='button' data-scheme-choice='1')
-          span.notebook-scheme-swatch.notebook-scheme-swatch--1
-          span 科幻
-        button(type='button' data-scheme-choice='2')
-          span.notebook-scheme-swatch.notebook-scheme-swatch--2
-          span 动漫
-        button(type='button' data-scheme-choice='3')
-          span.notebook-scheme-swatch.notebook-scheme-swatch--3
-          span 几何
-        button(type='button' data-scheme-choice='4')
-          span.notebook-scheme-swatch.notebook-scheme-swatch--4
-          span Xbox
-        button(type='button' data-scheme-choice='5')
-          span.notebook-scheme-swatch.notebook-scheme-swatch--5
-          span PlayStation
-        button(type='button' data-scheme-choice='6')
-          span.notebook-scheme-swatch.notebook-scheme-swatch--6
-          span 塞尔达
+        != render_slot('hero')
+        != render_slot('destinations')
+    != render_slot('footer')
+    != render_slot('scheme')

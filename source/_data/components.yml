@@ -4,4 +4,15 @@ global:
   footer:
     - component: site-footer
 
-pages: {}
+pages:
+  home:
+    header:
+      - component: home-header
+    hero:
+      - component: role-line
+    destinations:
+      - component: destination-grid
+    footer:
+      - component: home-footer
+    scheme:
+      - component: scheme-picker
