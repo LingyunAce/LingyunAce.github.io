@@ -1,0 +1,5 @@
+id: site-footer
+name: 站点页脚
+description: 内页页脚版权 + 链接
+slots: [global.footer]
+defaults: {}

@@ -1,0 +1,22 @@
+- const notebookData = site.data.notebook
+- const currentNotebookPath = `/${String(page.path || '').replace(/index\.html$/, '')}`
+header.notebook-header
+  .notebook-header-inner.notebook-shell
+    a.notebook-wordmark(href=url_for('/') aria-label="凌云首页")
+      img(src=url_for('/img/notebook/wordmark.svg') alt="凌云 · LingyunAce")
+    nav.notebook-tabs(aria-label="主要导航")
+      each item in notebookData.nav
+        - const isCurrent = !item.external && (item.url === '/' ? currentNotebookPath === '/' : currentNotebookPath.startsWith(item.url))
+        a.notebook-tab(
+          href=url_for(item.url)
+          aria-current=isCurrent ? 'page' : null
+          target=item.external ? '_blank' : null
+          rel=item.external ? 'noopener' : null
+        )= item.label
+    .notebook-actions
+      button.notebook-theme-toggle(
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="切换到暗色主题"
+      ) ◐

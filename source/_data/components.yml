@@ -1,2 +1,7 @@
-global: {}
+global:
+  header:
+    - component: site-header
+  footer:
+    - component: site-footer
+
 pages: {}

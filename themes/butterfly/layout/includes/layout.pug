@@ -16,10 +16,10 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
   body(class=isNotebookPage ? 'notebook-site' : null)
     if isNotebookPage
       a.notebook-skip(href="#content-inner") 跳到主内容
-      include notebook/header.pug
+      != render_slot('header')
       main#content-inner.notebook-main
         block content
-      include notebook/footer.pug
+      != render_slot('footer')
       include ./additional-js.pug
     else
       !=partial('includes/loading/index', {}, {cache: true})

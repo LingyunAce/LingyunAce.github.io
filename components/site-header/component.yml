@@ -1,0 +1,5 @@
+id: site-header
+name: 站点导航
+description: 内页顶部字标 + 标签导航 + 主题切换
+slots: [global.header]
+defaults: {}
