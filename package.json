@@ -4,7 +4,7 @@
   "private": true,
   "description": "Personal portfolio website built with Hexo + Butterfly",
   "scripts": {
-    "test": "node --test test/notebook-site.test.js",
+    "test": "node --test test/notebook-site.test.js test/components-engine.test.js",
     "build": "hexo generate",
     "clean": "hexo clean",
     "server": "hexo server",
