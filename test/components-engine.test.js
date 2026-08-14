@@ -109,6 +109,26 @@ test('validateConfig throws for unknown component id', () => {
   assert.doesNotThrow(() => validateConfig(registry, { global: { header: [{ component: 'known' }] } }))
 })
 
+test('validateConfig throws when a slot value is not an array', () => {
+  const registry = new Map([['known', { id: 'known' }]])
+  const config = { pages: { home: { header: { component: 'home-header' } } } }
+  assert.throws(() => validateConfig(registry, config), /插槽 "header" 的值必须是数组/)
+})
+
+test('validateConfig throws when an instance lacks a component field', () => {
+  const registry = new Map([['known', { id: 'known' }]])
+  const config = { global: { header: ['site-header'] } }
+  assert.throws(() => validateConfig(registry, config), /插槽 "header" 存在格式错误的组件实例/)
+})
+
+test('scanComponents preserves a falsy data.yml document', () => {
+  withTmpDir(dir => {
+    makeTmpComponent(dir, 'alpha', 'id: alpha\n', { 'data.yml': 'false\n' })
+    const registry = scanComponents(dir)
+    assert.equal(registry.get('alpha').data, false)
+  })
+})
+
 test('bundles concatenate component assets', () => {
   withTmpDir(dir => {
     makeTmpComponent(dir, 'alpha', 'id: alpha\n', { 'style.css': '/*a*/', 'script.js': '//a' })
