@@ -16,3 +16,9 @@ pages:
       - component: home-footer
     scheme:
       - component: scheme-picker
+  about:
+    notes:
+      - component: about-notes
+  projects:
+    gallery:
+      - component: project-gallery

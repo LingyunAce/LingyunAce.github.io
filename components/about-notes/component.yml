@@ -1,0 +1,5 @@
+id: about-notes
+name: 关于便签
+description: 关于页的自我介绍便签
+slots: [about.notes]
+defaults: {}

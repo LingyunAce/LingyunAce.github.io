@@ -1,0 +1,5 @@
+id: project-gallery
+name: 作品画廊
+description: 作品页筛选 + 项目卡片网格
+slots: [projects.gallery]
+defaults: {}
