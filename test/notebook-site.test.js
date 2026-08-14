@@ -135,11 +135,12 @@ test('all interactive notebook controls meet the minimum target size', () => {
   }
 })
 
-test('homepage template renders configured images with an SVG fallback', () => {
-  const template = read('themes/butterfly/layout/notebook-home.pug')
+test('destination-grid component renders configured images with an SVG fallback', () => {
+  const template = read('components/destination-grid/template.pug')
   assert.match(template, /if item\.icon/)
   assert.match(template, /img\.notebook-destination__image\(src=url_for\(item\.icon\) alt=""\)/)
-  assert.match(template, /else\s+\+notebookIcon\(item\.id, item\.label\)/)
+  assert.match(template, /svg\.notebook-icon\(role="img" aria-label=item\.label\)/)
+  assert.match(template, /use\(href=url_for\(`\/img\/notebook\/icons\.svg#icon-\$\{item\.id\}`\)\)/)
 })
 
 test('generated homepage is a five-destination Pokemon notebook index', () => {
@@ -254,4 +255,25 @@ test('Pokemon destinations use open desktop and centered mobile layouts', () => 
   assert.match(css, /@media \(max-width:\s*760px\)[\s\S]*\.notebook-destination:nth-child\(5\)[^{]*\{[^}]*grid-column:\s*1\s*\/\s*-1/)
   assert.match(css, /@media \(max-width:\s*359px\)[\s\S]*grid-template-columns:\s*1fr/)
   assert.match(css, /\.notebook-destination__image[^{]*\{[^}]*flex:\s*0\s+0\s+auto/)
+})
+
+test('every configured component ships a manifest and template', () => {
+  const configYaml = read('source/_data/components.yml')
+  const ids = new Set()
+  const re = new RegExp('component:\\s*(\\S+)', 'g')
+  let m
+  while ((m = re.exec(configYaml)) !== null) ids.add(m[1])
+  assert.ok(ids.size >= 9)
+  for (const id of ids) {
+    const manifest = read(`components/${id}/component.yml`)
+    assert.match(manifest, new RegExp(`id:\\s*${id}`))
+    assert.ok(read(`components/${id}/template.pug`).length > 0, `${id} 必须有 template.pug`)
+  }
+})
+
+test('component asset bundles are generated alongside core pages', () => {
+  const css = read('public/css/components.css')
+  const js = read('public/js/components.js')
+  assert.ok(typeof css === 'string')
+  assert.ok(typeof js === 'string')
 })
