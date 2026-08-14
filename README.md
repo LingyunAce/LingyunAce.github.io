@@ -148,6 +148,44 @@ git push -u origin main
 - **首页入口图标**：将 PNG 放入 `source/img/pokemon/`，再修改 `source/_data/notebook.yml` 对应入口的 `icon` 路径；无需修改模板或 CSS
 - **关于页**：编辑 `source/about/index.md`
 
+## 🧩 组件化热拔插
+
+全站 UI 拆分为 `components/` 目录下的自包含组件，通过 `source/_data/components.yml`
+一个配置实现增删、排序、开关与替换，无需改动模板。
+
+### 目录结构
+
+```
+components/
+  site-header/
+    component.yml   # id / name / description / slots / defaults
+    template.pug    # 渲染片段
+    style.css       # 可选：组件专属样式
+    script.js       # 可选：组件交互脚本
+    data.yml        # 可选：组件自带数据（componentData）
+```
+
+### 编排配置（source/_data/components.yml）
+
+`global.<插槽>` 供所有内页使用，`pages.<页面>.<插槽>` 优先级更高（首页头部/页脚即
+通过 `pages.home.header` / `pages.home.footer` 覆盖）。每个插槽是有序组件实例列表：
+
+```yaml
+pages:
+  home:
+    destinations:
+      - component: destination-grid   # 替换组件 = 改这一行
+        # enabled: false              # 拔掉组件 = 加这一行
+```
+
+### 新增一个组件
+
+1. 新建 `components/<id>/`，写入 `component.yml` 与 `template.pug`（可选 `style.css`、`script.js`、`data.yml`）。
+2. 在 `source/_data/components.yml` 的对应插槽挂载该组件。
+3. 提交，GitHub Actions 自动重建上线。
+
+未知组件 id、重复 id、缺 `template.pug` 会在构建时报错（fail fast）。
+
 ## 验证
 
 ```bash
