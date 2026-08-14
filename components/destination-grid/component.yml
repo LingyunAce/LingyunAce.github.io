@@ -1,5 +1,5 @@
 id: destination-grid
 name: 入口卡片网格
-description: 首页六个主要入口卡片
+description: 首页主要入口卡片网格
 slots: [home.destinations]
 defaults: {}
