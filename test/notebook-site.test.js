@@ -7,6 +7,49 @@ const root = path.resolve(__dirname, '..')
 const read = relativePath =>
   fs.readFileSync(path.join(root, relativePath), 'utf8')
 
+const readWebpMetadata = relativePath => {
+  const bytes = fs.readFileSync(path.join(root, relativePath))
+  assert.equal(bytes.subarray(0, 4).toString('ascii'), 'RIFF')
+  assert.equal(bytes.subarray(8, 12).toString('ascii'), 'WEBP')
+
+  const chunks = []
+  let offset = 12
+  while (offset + 8 <= bytes.length) {
+    const type = bytes.subarray(offset, offset + 4).toString('ascii')
+    const size = bytes.readUInt32LE(offset + 4)
+    const dataStart = offset + 8
+    const dataEnd = dataStart + size
+    assert.ok(dataEnd <= bytes.length, `${relativePath} has a truncated ${type} chunk`)
+    chunks.push({ type, data: bytes.subarray(dataStart, dataEnd) })
+    offset = dataEnd + (size & 1)
+  }
+  assert.equal(offset, bytes.length, `${relativePath} has trailing or malformed RIFF data`)
+
+  const vp8x = chunks.find(chunk => chunk.type === 'VP8X')
+  const vp8l = chunks.find(chunk => chunk.type === 'VP8L')
+  assert.ok(vp8x || vp8l, `${relativePath} must contain a VP8X or VP8L image chunk`)
+
+  if (vp8x) {
+    assert.equal(vp8x.data.length, 10)
+    return {
+      width: 1 + vp8x.data[4] + (vp8x.data[5] << 8) + (vp8x.data[6] << 16),
+      height: 1 + vp8x.data[7] + (vp8x.data[8] << 8) + (vp8x.data[9] << 16),
+      alpha: Boolean(vp8x.data[0] & 0x10),
+      chunks
+    }
+  }
+
+  assert.equal(vp8l.data[0], 0x2f, `${relativePath} has an invalid VP8L signature`)
+  assert.ok(vp8l.data.length >= 5, `${relativePath} has an incomplete VP8L header`)
+  const header = vp8l.data.readUInt32LE(1)
+  return {
+    width: 1 + (header & 0x3fff),
+    height: 1 + ((header >>> 14) & 0x3fff),
+    alpha: Boolean((header >>> 28) & 0x1),
+    chunks
+  }
+}
+
 const {
   resolveTheme,
   nextTheme,
@@ -31,19 +74,24 @@ test('project tag matching supports all and comma-delimited tags', () => {
 test('notebook data defines five configurable Pokemon destinations', () => {
   const data = read('source/_data/notebook.yml')
   const expected = {
-    projects: '/img/pokemon/pikachu.png',
-    writing: '/img/pokemon/psyduck.png',
-    about: '/img/pokemon/eevee.png',
-    github: '/img/pokemon/meowth.png',
-    contact: '/img/pokemon/jigglypuff.png'
+    projects: '/img/pokemon/pikachu.webp',
+    writing: '/img/pokemon/psyduck.webp',
+    about: '/img/pokemon/eevee.webp',
+    github: '/img/pokemon/meowth.webp',
+    contact: '/img/pokemon/jigglypuff.webp'
   }
 
   for (const [id, icon] of Object.entries(expected)) {
     assert.match(data, new RegExp(`id: ${id}[^\\n]*icon: ${icon.replaceAll('/', '\\/')}`))
-    const bytes = fs.readFileSync(path.join(root, 'source', icon))
-    assert.equal(bytes.subarray(1, 4).toString('ascii'), 'PNG')
+    const metadata = readWebpMetadata(path.join('source', icon))
+    assert.equal(metadata.width, 144)
+    assert.equal(metadata.height, 144)
+    assert.equal(metadata.alpha, true, `${icon} must retain transparency`)
+    assert.equal(metadata.chunks.some(chunk => chunk.type === 'VP8L' || chunk.type === 'VP8 '), true)
+    assert.equal(fs.existsSync(path.join(root, 'source', 'img', 'pokemon', `${path.basename(icon, '.webp')}.png`)), false)
   }
 
+  assert.doesNotMatch(data, /\/img\/pokemon\/(?:pikachu|psyduck|eevee|meowth|jigglypuff)\.png/)
   assert.doesNotMatch(data, /id: notes/)
   assert.doesNotMatch(data, /label: 随记/)
 })
@@ -227,17 +275,18 @@ test('generated homepage is a five-destination Pokemon notebook index', () => {
   assert.match(html, /data-theme-toggle/)
   assert.match(html, /aria-label="主要入口"/)
   const expected = {
-    projects: 'pikachu.png',
-    writing: 'psyduck.png',
-    about: 'eevee.png',
-    github: 'meowth.png',
-    contact: 'jigglypuff.png'
+    projects: 'pikachu.webp',
+    writing: 'psyduck.webp',
+    about: 'eevee.webp',
+    github: 'meowth.webp',
+    contact: 'jigglypuff.webp'
   }
 
   for (const [id, filename] of Object.entries(expected)) {
     assert.match(html, new RegExp(`data-destination="${id}"[\\s\\S]*?img/pokemon/${filename}`))
   }
 
+  assert.doesNotMatch(html, /img\/pokemon\/(?:pikachu|psyduck|eevee|meowth|jigglypuff)\.png/)
   assert.doesNotMatch(html, /data-destination="notes"/)
   assert.equal((html.match(/data-destination=/g) || []).length, 5)
   assert.equal((html.match(/class="notebook-destination__image"/g) || []).length, 5)
