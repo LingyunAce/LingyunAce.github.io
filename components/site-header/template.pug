@@ -1,12 +1,14 @@
 - const notebookData = site.data.notebook
 - const currentNotebookPath = `/${String(page.path || '').replace(/index\.html$/, '')}`
+- const isPostPage = page.layout === 'post' || page.type === 'post'
 header.notebook-header
   .notebook-header-inner.notebook-shell
     a.notebook-wordmark(href=url_for('/') aria-label="凌云首页")
-      img(src=url_for('/img/notebook/wordmark.svg') alt="凌云 · LingyunAce")
+      img.notebook-wordmark__image.notebook-wordmark__image--light(src=url_for('/img/notebook/wordmark.svg') alt="凌云 · LingyunAce")
+      img.notebook-wordmark__image.notebook-wordmark__image--dark(src=url_for('/img/notebook/wordmark-dark.svg') alt="凌云 · LingyunAce")
     nav.notebook-tabs(aria-label="主要导航")
       each item in notebookData.nav
-        - const isCurrent = !item.external && (item.url === '/' ? currentNotebookPath === '/' : currentNotebookPath.startsWith(item.url))
+        - const isCurrent = !item.external && ((item.id === 'writing' && isPostPage) || (item.url === '/' ? currentNotebookPath === '/' : currentNotebookPath.startsWith(item.url)))
         a.notebook-tab(
           href=url_for(item.url)
           aria-current=isCurrent ? 'page' : null
