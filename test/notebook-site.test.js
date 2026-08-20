@@ -213,12 +213,17 @@ test('about page renders approved notes in semantic order', () => {
 
 test('archive is a compact chronological notebook list', () => {
   const html = read('public/archives/index.html')
+  const css = read('source/css/notebook.css')
   assert.match(html, /class="notebook-archive"/)
   assert.match(html, /class="notebook-archive-item"/)
   assert.match(html, /aria-current="page"[^>]*>文章</)
   assert.equal((html.match(/<h1\b/g) || []).length, 1)
   assert.match(html, /<h1 class="article-sort-title">全部文章 - \d+<\/h1>/)
   assert.match(html, /<meta name="description" content="按时间浏览凌云的技术文章、项目实践与日常思考。">/)
+  assert.match(
+    css,
+    /\.notebook-site \.notebook-archive > \.article-sort-title\s*\{[^}]*margin-left:\s*0;/
+  )
 })
 
 test('post pages keep article content inside the notebook reading shell', () => {

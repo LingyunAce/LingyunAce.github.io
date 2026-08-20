@@ -446,6 +446,10 @@
   margin-inline: auto;
 }
 
+.notebook-site .notebook-archive > .article-sort-title {
+  margin-left: 0;
+}
+
 .notebook-site .notebook-archive-list {
   position: relative;
   margin: 0;
