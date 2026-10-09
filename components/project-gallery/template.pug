@@ -61,3 +61,12 @@ section.notebook-projects.notebook-shell(class=isFeatured ? 'notebook-projects--
             ul.notebook-tags(aria-label="技术")
               each tag in project.tags
                 li.notebook-tag= tag
+
+  - const scifi = site.data.scifi
+  if scifi
+    section.notebook-scifi(aria-labelledby="scifi-title")
+      header.notebook-scifi__heading
+        p.notebook-kicker= scifi.subtitle
+        h2#scifi-title= scifi.title
+      .notebook-scifi__empty.notebook-card
+        p= scifi.status
