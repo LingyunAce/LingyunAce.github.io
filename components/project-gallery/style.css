@@ -10,59 +10,88 @@
 }
 
 .notebook-site .notebook-portfolio-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   min-width: 0;
-  min-height: 240px;
-  padding: 32px 48px;
-  border: 1px solid var(--notebook-border);
-  border-radius: 120px;
-  background: var(--notebook-paper);
-  box-shadow: 0 8px 24px rgba(38, 28, 34, 0.06);
+}
+
+.notebook-site .notebook-portfolio-section__heading {
+  margin-bottom: 16px;
+}
+
+.notebook-site .notebook-portfolio-section__heading .notebook-kicker {
+  margin: 0 0 6px;
 }
 
 .notebook-site .notebook-portfolio-section__heading h2 {
-  margin: 0 0 8px;
-  color: var(--notebook-muted);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.notebook-site .notebook-projects .notebook-project {
-  display: block;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  box-shadow: none;
-}
-
-.notebook-site .notebook-projects .notebook-project__body {
-  display: flex;
-  min-height: 44px;
-  padding: 0;
-  justify-content: center;
-}
-
-.notebook-site .notebook-projects .notebook-project__body h3 {
   margin: 0;
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
-  line-height: 1.4;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.notebook-site .notebook-projects .notebook-project--featured {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+.notebook-site .notebook-projects .notebook-project__cover {
+  min-height: 240px;
+}
+
+.notebook-site .notebook-projects .notebook-project__monogram {
+  top: -16px;
+  font-size: 6rem;
+}
+
+.notebook-site .notebook-projects .notebook-project__cover-name {
+  max-width: calc(100% - 24px);
+  padding: 8px 12px;
+  font-size: 1rem;
   overflow-wrap: anywhere;
 }
 
-.notebook-site .notebook-portfolio-section__heading .notebook-kicker,
-.notebook-site .notebook-projects .notebook-project__cover,
-.notebook-site .notebook-projects .notebook-project__body > p,
-.notebook-site .notebook-projects .notebook-tags,
-.notebook-site .notebook-projects .notebook-project__cta {
-  display: none;
+.notebook-site .notebook-projects .notebook-project__cover-tags {
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  gap: 4px;
 }
 
-.notebook-site .notebook-projects .notebook-project:hover h3 {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+.notebook-site .notebook-projects .notebook-project__cover-tag {
+  padding: 2px 6px;
+  font-size: 0.625rem;
+}
+
+.notebook-site .notebook-projects .notebook-project__body {
+  min-width: 0;
+  min-height: 240px;
+  padding: 20px;
+}
+
+.notebook-site .notebook-projects .notebook-project__body h3 {
+  margin: 0 0 8px;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.notebook-site .notebook-projects .notebook-project--featured .notebook-project__body > p {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.notebook-site .notebook-projects .notebook-tags {
+  margin-top: 12px;
+  gap: 4px;
+}
+
+.notebook-site .notebook-projects .notebook-tag {
+  padding: 2px 6px;
+  font-size: 0.625rem;
+}
+
+.notebook-site .notebook-projects .notebook-project__cta {
+  margin-top: 14px;
+  padding: 6px 12px;
+  font-size: 0.8125rem;
 }
 
 .notebook-site .notebook-projects .notebook-project:focus-visible {
@@ -75,8 +104,18 @@
     gap: 12px;
   }
 
-  .notebook-site .notebook-portfolio-section {
-    padding: 18px;
-    border-radius: 64px;
+  .notebook-site .notebook-projects .notebook-project--featured {
+    grid-template-columns: 1fr;
+  }
+
+  .notebook-site .notebook-projects .notebook-project__cover {
+    min-height: 150px;
+    border-right: 0;
+    border-bottom: 1px solid var(--notebook-border);
+  }
+
+  .notebook-site .notebook-projects .notebook-project__body {
+    min-height: 0;
+    padding: 16px;
   }
 }
