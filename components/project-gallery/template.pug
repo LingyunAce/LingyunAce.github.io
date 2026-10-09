@@ -1,33 +1,8 @@
-- const projects = site.data.projects || []
-- const showFilters = projects.length >= 4
-- const isFeatured = projects.length === 1
-section.notebook-projects.notebook-shell(class=isFeatured ? 'notebook-projects--featured' : null aria-labelledby="projects-title")
-  header.notebook-page-heading
-    p.notebook-kicker Projects
-    h1#projects-title 作品集
-    if showFilters
-      p 这里收录了我做过的所有项目。点击标签可以筛选。
-    else if isFeatured
-      p 目前重点展示的项目。
-    else
-      p 这里收录了我做过的项目。
-
-  if showFilters
-    .notebook-project-tools
-      .notebook-project-filters(aria-label="按技术筛选项目")
-        button.notebook-project-filter(type="button" data-project-filter="all" aria-pressed="true") 全部
-        each tag in [...new Set(projects.flatMap(project => project.tags))]
-          button.notebook-project-filter(type="button" data-project-filter=tag aria-pressed="false")= tag
-      p.notebook-sr-only(data-project-status aria-live="polite")= `显示 ${projects.length} 个项目`
-
-  .notebook-project-grid(class=isFeatured ? 'notebook-project-grid--featured' : null)
-    each project in projects
+mixin workCard(project, isFeatured)
       if project.link
         a.notebook-project.notebook-card(class=isFeatured ? 'notebook-project--featured' : null
           data-project-tags=project.tags.join(',')
           href=project.link
-          target="_blank"
-          rel="noopener"
         )
           .notebook-project__cover(style=`--project-accent: ${project.accent || '#4f7cff'}`)
             span.notebook-project__monogram(aria-hidden="true")= project.name.charAt(0)
@@ -36,15 +11,12 @@ section.notebook-projects.notebook-shell(class=isFeatured ? 'notebook-projects--
               each tag in project.tags.slice(0, 3)
                 li.notebook-project__cover-tag= tag
           .notebook-project__body
-            if isFeatured
-              p.notebook-project__eyebrow Featured project
-            h2= project.name
+            h3= project.name
             p= project.desc
-            ul.notebook-tags(aria-label="技术")
+            ul.notebook-tags(aria-label="标签")
               each tag in project.tags
                 li.notebook-tag= tag
-            span.notebook-project__cta 查看项目 ↗
-            span.notebook-sr-only #{project.name}（在新窗口打开）
+            span.notebook-project__cta 阅读作品 →
       else
         article.notebook-project.notebook-card(class=isFeatured ? 'notebook-project--featured' : null data-project-tags=project.tags.join(','))
           .notebook-project__cover(style=`--project-accent: ${project.accent || '#4f7cff'}`)
@@ -54,19 +26,27 @@ section.notebook-projects.notebook-shell(class=isFeatured ? 'notebook-projects--
               each tag in project.tags.slice(0, 3)
                 li.notebook-project__cover-tag= tag
           .notebook-project__body
-            if isFeatured
-              p.notebook-project__eyebrow Featured project
-            h2= project.name
+            h3= project.name
             p= project.desc
-            ul.notebook-tags(aria-label="技术")
+            ul.notebook-tags(aria-label="标签")
               each tag in project.tags
                 li.notebook-tag= tag
 
-  - const scifi = site.data.scifi
-  if scifi
-    section.notebook-scifi(aria-labelledby="scifi-title")
-      header.notebook-scifi__heading
-        p.notebook-kicker= scifi.subtitle
-        h2#scifi-title= scifi.title
-      .notebook-scifi__empty.notebook-card
-        p= scifi.status
+- const projects = site.data.projects || []
+- const sections = site.data.portfolio_sections || []
+section.notebook-projects.notebook-shell(aria-labelledby="projects-title")
+  header.notebook-page-heading
+    p.notebook-kicker Projects
+    h1#projects-title 作品集
+    p 科幻创作、技术实践与人文随笔。
+
+  each category in sections
+    - const works = projects.filter(project => project.category === category.id)
+    - const isFeatured = works.length === 1
+    section.notebook-portfolio-section(aria-labelledby=`${category.id}-title`)
+      header.notebook-portfolio-section__heading
+        p.notebook-kicker= category.subtitle
+        h2(id=`${category.id}-title`)= category.title
+      .notebook-project-grid(class=isFeatured ? 'notebook-project-grid--featured' : null)
+        each project in works
+          +workCard(project, isFeatured)

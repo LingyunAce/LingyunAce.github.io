@@ -1,0 +1,9 @@
+- id: scifi
+  title: 科幻
+  subtitle: Science Fiction
+- id: technology
+  title: 技术
+  subtitle: Technology
+- id: humanities
+  title: 人文
+  subtitle: Humanities

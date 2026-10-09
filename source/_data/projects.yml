@@ -1,11 +1,29 @@
 # 作品集数据
 # highlight: true 的项目会显示在首页
 # accent: 封面主题色(十六进制),用于程序化封面渐变
+# category: 对应 portfolio_sections.yml 中的板块 id
 # 字段说明见 docs/superpowers/specs/2026-06-01-personal-portfolio-design.md
 
 - name: RK3576 Ubuntu 固件项目
+  category: technology
   accent: '#2563eb'
   desc: 基于 LubanCat SDK 的 RK3576 开发板 Ubuntu 22.04 定制固件项目，集成离线语音识别与系统补丁
   tags: [RK3576, Ubuntu, 嵌入式, LubanCat]
-  link: https://biubiutoo.cn/posts/rk3576-ubuntu-firmware/
+  link: /posts/rk3576-ubuntu-firmware/
   highlight: true
+
+- name: 永生者
+  category: scifi
+  accent: '#7c3aed'
+  desc: 七百多万年后，我坐在一颗没有名字的行星上看一场持续三个月的日落。永生最奇怪的地方不是活得太久，而是你会逐渐失去“过去”。
+  tags: [科幻, 小说, 短篇]
+  link: /posts/yongshengzhe/
+  highlight: false
+
+- name: 写写澧县：地理、方言，和人口
+  category: humanities
+  accent: '#b77932'
+  desc: 从家乡澧县出发，记录地理、历史、方言与人口变迁。
+  tags: [澧县, 方言, 人口]
+  link: /posts/6206/
+  highlight: false

@@ -267,31 +267,30 @@ test('generated homepage exposes complete social metadata and structured identit
   assert.deepEqual(data['@graph'][1].sameAs, ['https://github.com/LingyunAce'])
 })
 
-test('single-project page uses a featured case-study layout without filters', () => {
+test('portfolio groups each work under its correct section with working article links', () => {
   const html = read('public/projects/index.html')
-  const template = read('components/project-gallery/template.pug')
   const projectCount = (read('source/_data/projects.yml').match(/^- name:/gm) || []).length
   assert.match(html, /class="notebook-header"/)
   assert.match(html, /aria-current="page"[^>]*>作品</)
-  assert.match(template, /projects\.length >= 4/)
-  assert.match(template, /data-project-filter/)
-  if (projectCount === 1) {
-    assert.match(html, /notebook-project-grid--featured/)
-    assert.match(html, /notebook-project--featured/)
-    assert.match(html, /notebook-project__cta/)
-    assert.doesNotMatch(html, /data-project-filter=/)
-    assert.doesNotMatch(html, /data-project-status/)
-  } else if (projectCount >= 4) {
-    assert.match(html, /data-project-filter="all"/)
-    assert.match(html, /data-project-status/)
-  } else {
-    assert.doesNotMatch(html, /data-project-filter=/)
-    assert.doesNotMatch(html, /data-project-status/)
+  const sections = [
+    ['scifi', '科幻', '永生者', 'yongshengzhe'],
+    ['technology', '技术', 'RK3576 Ubuntu 固件项目', 'rk3576-ubuntu-firmware'],
+    ['humanities', '人文', '写写澧县：地理、方言，和人口', '6206']
+  ]
+  let previousPosition = -1
+  for (const [id, title, name, slug] of sections) {
+    const section = html.match(new RegExp(`<section[^>]*aria-labelledby="${id}-title"[^>]*>([\\s\\S]*?)</section>`))
+    assert.ok(section, `${title} section must exist`)
+    assert.ok(section.index > previousPosition, 'sections must follow the requested order')
+    previousPosition = section.index
+    assert.ok(section[1].includes(`<h2 id="${id}-title">${title}</h2>`))
+    assert.ok(section[1].includes(`<h3>${name}</h3>`))
+    assert.ok(section[1].includes(`href="/posts/${slug}/"`))
+    assert.equal((html.match(new RegExp(`href="/posts/${slug}/"`, 'g')) || []).length, 1)
+    assert.ok(fs.existsSync(path.join(root, `public/posts/${slug}/index.html`)), `${name} article must be generated`)
   }
-  assert.equal(
-    (html.match(/data-project-tags=/g) || []).length,
-    projectCount
-  )
+  assert.equal((html.match(/data-project-tags=/g) || []).length, projectCount)
+  assert.doesNotMatch(html, /作品筹备中|data-project-filter=/)
 })
 
 test('mobile notebook header uses two rows with a horizontally scrollable nav', () => {

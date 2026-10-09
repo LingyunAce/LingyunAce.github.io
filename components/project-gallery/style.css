@@ -1,28 +1,25 @@
-.notebook-site .notebook-scifi {
+.notebook-site .notebook-portfolio-section + .notebook-portfolio-section {
   margin-top: 56px;
 }
 
-.notebook-site .notebook-scifi__heading {
+.notebook-site .notebook-portfolio-section__heading {
   margin-bottom: 24px;
 }
 
-.notebook-site .notebook-scifi__heading .notebook-kicker {
+.notebook-site .notebook-portfolio-section__heading .notebook-kicker {
   margin: 0 0 8px;
 }
 
-.notebook-site .notebook-scifi__heading h2 {
+.notebook-site .notebook-portfolio-section__heading h2 {
   margin: 0;
   font-size: var(--notebook-type-section);
   line-height: 1.2;
   letter-spacing: -0.035em;
 }
 
-.notebook-site .notebook-scifi__empty {
-  padding: clamp(32px, 5vw, 64px);
-  color: var(--notebook-muted);
-  text-align: center;
-}
-
-.notebook-site .notebook-scifi__empty p {
-  margin: 0;
+.notebook-site .notebook-project__body h3 {
+  margin: 0 0 12px;
+  font-size: var(--notebook-type-card);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
