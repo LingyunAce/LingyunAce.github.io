@@ -40,7 +40,11 @@ footer:
   owner:
     enable: true
     since: 2026
-  custom_text: <p>Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></p>
+  # 分页列表、标签、分类走 Butterfly 自带页脚，这里也得挂备案号；
+  # 首页与内页另走 components/site-footer、home-footer，号码取自 source/_data/notebook.yml
+  custom_text: >-
+    <p>Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></p>
+    <p><a class="notebook-beian" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2026167778号-2</a></p>
   copyright: false
 
 # Related articles
@@ -117,7 +121,7 @@ reading_progress:
 
 inject:
   head:
-    - <link rel="stylesheet" href="/css/notebook.css?v=8">
+    - <link rel="stylesheet" href="/css/notebook.css?v=9">
     - <link rel="stylesheet" href="/css/components.css?v=2">
   bottom:
     - <script src="/js/notebook.js?v=6" defer></script>

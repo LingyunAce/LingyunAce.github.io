@@ -185,7 +185,7 @@ test('notebook stylesheet cache version is consistent across shell entry points'
     '_config.butterfly.yml',
     'themes/butterfly/layout/notebook-home.pug'
   ]) {
-    assert.match(read(sourcePath), /notebook\.css\?v=8/)
+    assert.match(read(sourcePath), /notebook\.css\?v=9/)
   }
 })
 
@@ -246,7 +246,7 @@ test('generated homepage is a five-destination Pokemon notebook index', () => {
 
 test('generated homepage exposes complete social metadata and structured identity', () => {
   const html = read('public/index.html')
-  const homeUrl = 'https://biubiutoo.cn/'
+  const homeUrl = 'https://blog.biubiutoo.cn/'
   const homeImage = `${homeUrl}img/favicon-512.png`
 
   assert.match(html, new RegExp(`<link rel="canonical" href="${homeUrl}">`))
@@ -389,4 +389,44 @@ test('component asset bundles are generated alongside core pages', () => {
   const js = read('public/js/components.js')
   assert.ok(typeof css === 'string')
   assert.ok(typeof js === 'string')
+})
+
+test('site url points at the blog subdomain and hexo deploy is gone', () => {
+  const config = read('_config.yml')
+  assert.match(config, /^url: https:\/\/blog\.biubiutoo\.cn$/m)
+  assert.doesNotMatch(config, /^url: https:\/\/biubiutoo\.cn$/m)
+  assert.doesNotMatch(config, /^deploy:/m)
+})
+
+test('source CNAME is gone so GitHub Pages stops claiming the root domain', () => {
+  assert.equal(fs.existsSync(path.join(root, 'source/CNAME')), false)
+})
+
+test('both footer shells show the ICP number from a single data source', () => {
+  const data = read('source/_data/notebook.yml')
+  assert.match(
+    data,
+    /beian:\r?\n\s+number: "粤ICP备2026167778号-2"\r?\n\s+url: "https:\/\/beian\.miit\.gov\.cn\/"/
+  )
+  for (const templatePath of [
+    'components/site-footer/template.pug',
+    'components/home-footer/template.pug'
+  ]) {
+    const template = read(templatePath)
+    assert.match(template, /site\.data\.notebook\.beian\.url/)
+    assert.match(template, /site\.data\.notebook\.beian\.number/)
+  }
+  assert.match(read('_config.butterfly.yml'), /粤ICP备2026167778号-2/)
+  // 号码不许折行：管局要求原样展示
+  assert.match(read('source/css/notebook.css'), /\.notebook-beian[^{]*\{[^}]*white-space:\s*nowrap;/)
+})
+
+test('generated feed and homepage carry the blog subdomain and the filing number', () => {
+  const feed = read('public/atom.xml')
+  assert.doesNotMatch(feed, /https:\/\/biubiutoo\.cn/)
+  assert.match(feed, /https:\/\/blog\.biubiutoo\.cn\//)
+  assert.match(
+    read('public/index.html'),
+    /<a[^>]*class="notebook-beian"[^>]*href="https:\/\/beian\.miit\.gov\.cn\/"[^>]*>粤ICP备2026167778号-2<\/a>/
+  )
 })

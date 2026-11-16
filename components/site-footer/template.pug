@@ -1,6 +1,9 @@
 footer.notebook-footer
   .notebook-footer-inner.notebook-shell
     p &copy; #{new Date().getFullYear()} #{config.author}
+    //- 备案号：原样展示、可点，号码整体不折行（.notebook-beian 见 source/css/notebook.css）
+    p.notebook-beian
+      a(href=site.data.notebook.beian.url target="_blank" rel="noopener")= site.data.notebook.beian.number
     nav.notebook-footer-links(aria-label="页脚链接")
       each item in site.data.notebook.footer_links
         a(

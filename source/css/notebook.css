@@ -720,6 +720,16 @@
   align-items: center;
 }
 
+/* 备案号：号码是一串不带空格的字符，管局要求原样展示，别让它被折成两行。
+   分页列表/标签/分类走 Butterfly 自带页脚，body 上没有 notebook-site，所以两个作用域都要管 */
+.notebook-site .notebook-beian,
+.footer_custom_text .notebook-beian {
+  margin: 0;
+  color: var(--notebook-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
 /* Share-to-wechat button on the comment header row */
 .notebook-site .comment-head {
   display: flex;

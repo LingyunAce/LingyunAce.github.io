@@ -14,7 +14,7 @@ language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-url: https://biubiutoo.cn
+url: https://blog.biubiutoo.cn
 root: /
 permalink: posts/:abbrlink/
 permalink_defaults:
@@ -85,14 +85,6 @@ search:
   field: post
   content: true
   format: html
-
-# Deployment
-# Repo URL targets the user's actual GitHub Pages repository
-deploy:
-  type: git
-  repo: https://github.com/LingyunAce/LingYun.github.io.git
-  branch: gh-pages
-  message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
 
 # Theme
 theme: butterfly

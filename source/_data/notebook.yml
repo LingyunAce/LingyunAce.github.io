@@ -31,6 +31,11 @@ about_notes:
     title: 联系我
     lines: ["GitHub @LingyunAce", "543491395@qq.com"]
 
+# 备案号：法规要求原样展示并链接工信部系统；首页与内页两套页脚都从这里取
+beian:
+  number: "粤ICP备2026167778号-2"
+  url: "https://beian.miit.gov.cn/"
+
 footer_links:
   - { label: GitHub, url: "https://github.com/LingyunAce", external: true }
   - { label: 邮箱, url: "mailto:543491395@qq.com" }
