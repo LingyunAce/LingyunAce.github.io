@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="icon-projects" viewBox="0 0 24 24">
+    <path d="M3 5h7l2 2h9v12H3V5Zm2 4v8h14V9H5Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-writing" viewBox="0 0 24 24">
+    <path d="M5 3h10l4 4v14H5V3Zm2 2v14h10V8h-3V5H7Zm2 7h6v2H9v-2Zm0 4h6v2H9v-2Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-notes" viewBox="0 0 24 24">
+    <path d="M4 4h16v14H9l-5 3V4Zm2 2v11.4L8.4 16H18V6H6Zm3 3h6v2H9V9Zm0 4h4v2H9v-2Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-about" viewBox="0 0 24 24">
+    <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-1 7h2v6h-2v-6Zm0-4h2v2h-2V7Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-github" viewBox="0 0 24 24">
+    <path d="M7 3a3 3 0 1 1-1 5.83V15a3 3 0 1 1-2 0V8.83A3 3 0 0 1 7 3Zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm10 0a3 3 0 0 1 1 5.83V12c0 2.76-2.24 5-5 5h-1.17a3 3 0 1 1 0-2H13a3 3 0 0 0 3-3v-1.17A3 3 0 1 1 17 5Zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM5 17a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm4 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-contact" viewBox="0 0 24 24">
+    <path d="M3 5h18v14H3V5Zm2 2v.7l7 4.67 7-4.67V7H5Zm14 10V10.1l-7 4.66-7-4.66V17h14Z" fill="currentColor"/>
+  </symbol>
+</svg>
